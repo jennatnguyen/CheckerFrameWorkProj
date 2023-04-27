@@ -82,6 +82,11 @@ public class MemPool implements MemPoolInterface{
                 System.arraycopy(pool, 0, newPool, 0, pool.length);
                 pool = newPool;
                 bb = ByteBuffer.wrap(pool);
+                
+                
+                // You can't start putting stuff in the new bytes added because the
+                // initial size may be smaller than the size of the song you are trying
+                // to add :)
                 bb.position(newPool.length - initSize);
                 MH = bb.position();
                 bb.putShort(size);
@@ -97,9 +102,9 @@ public class MemPool implements MemPoolInterface{
                 MH = bb.position();
                 bb.putShort(size);
                 bb.put(space);
-                list.get(index).setStart(list.get(index).getStart() + size);
+                list.get(index).setStart(list.get(index).getStart() + size + 2);
             }
-            if (list.get(list.size()).getEnd() == list.get(list.size()).getStart())
+            if (list.get(index).getEnd() == list.get(index).getStart()) // Has to be index not list.size()
             {
                 list.remove(list.size());
             }
@@ -120,14 +125,17 @@ public class MemPool implements MemPoolInterface{
         short size = bb.getShort();
         FreeBlock newFBlock = new FreeBlock(theHandle.getStart(), theHandle.getStart() + 2 + size);        
         
+        // Need to add to the beginning
         if (newFBlock.getStart() < list.get(0).getStart()) {
             list.add(0, newFBlock);
             merge(0);
         }
+        // Need to add to the end
         else if (newFBlock.getStart() > list.get(list.size() -1).getEnd()) {
             list.add(newFBlock);
             merge(list.size() - 1);
         }
+        // Need to add in the middle
         else {
             FreeBlock curr, prev;
             for (int i = 1; i < list.size(); i++)
@@ -157,7 +165,13 @@ public class MemPool implements MemPoolInterface{
      * 
      */
     private void merge(int index) {
-        if (list.get(index).getStart() == list.get(index - 1).getEnd()) {
+        if (index == 0) {
+            if (list.get(0).getEnd() == list.get(1).getStart()) {
+                list.get(0).setEnd(list.get(1).getEnd());
+                list.remove(1);
+            }
+        }
+        else if (list.get(index).getStart() == list.get(index - 1).getEnd()){
             list.get(index - 1).setEnd(list.get(index).getEnd());
             list.remove(index);
             if (index < list.size()) {
@@ -174,10 +188,15 @@ public class MemPool implements MemPoolInterface{
      * @return string
      */
     @Override
-    public String get(MemHandle theHandle)
-    {
-        // TODO Auto-generated method stub
-        return "";
+    public String get(MemHandle theHandle) {
+        ByteBuffer bb = ByteBuffer.wrap(pool);
+        bb.position(theHandle.getStart());
+        short size = bb.getShort();
+        byte[] arr = new byte[size];
+        bb.get(arr);
+        String str = new String(arr, 0, size);
+        return str;
+        
     }
     
     /**

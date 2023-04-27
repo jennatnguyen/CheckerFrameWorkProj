@@ -181,23 +181,6 @@ public class DLList<E> implements Iterable<E> {
     public void add(E newEntry) {
         add(size(), newEntry);
     }
-    
-    /**
-     * 
-     */
-    public void sortedAdd(E newEntry) {
-        if (newEntry instanceof FreeBlock) {
-            FreeBlock entry = (FreeBlock) newEntry;
-            int i = 0;
-            Node<E> curr = head;
-            while (curr.next() != null) {
-                
-                
-                curr = curr.next();
-            }
-            
-        }
-    }
 
     /**
      * Adds the object to the position in the list
