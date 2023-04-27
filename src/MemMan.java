@@ -83,9 +83,16 @@ public class MemMan {
          * -> have hash table hash the artist and the song string, find a position,  
          * deal with collisions, expansions and insert the MH into that position
          */
-        
-        MemHandle MH = memPool.insert(str.getBytes(), (short)(str.getBytes().length));
-        tables[table].insert(str, MH);
+        if (tables[table].search(str) == null)
+        {
+            MemHandle MH = memPool.insert(str.getBytes(), (short)(str.getBytes().length));
+            tables[table].insert(str, MH);
+            System.out.println("|"+str+"| is added to the "+((table == 0)?"artist" : "song") +" database.");
+        }
+        else 
+        {
+            System.out.println("|"+str+"| duplicates a record already in " + ((table == 0)?"artist" : "song") +" database.");
+        }
     }
     
     /**
@@ -97,24 +104,25 @@ public class MemMan {
         
         File myFile = new File(args[2]);
         Scanner in = new Scanner(myFile);
-        String currCommand = "";
+        String currWord = "";
         MemMan mm = new MemMan(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
         while (in.hasNextLine()) {
-            currCommand = in.next();
-            if (currCommand.startsWith("insert"))
+            currWord = in.next();
+            if (currWord.equals("insert"))
             {
-                if (currCommand.substring(7, 13).equals("artist"))
+                currWord = in.next();
+                if (currWord.equals("artist"))
                 {
-                    mm.insert(currCommand.substring(13), 0);
+                    mm.insert(in.next(), 0);
                 }
-                if (currCommand.substring(7, 11).equals("song"))
+                else if (currWord.equals("song"))
                 {
-                    mm.insert(currCommand.substring(11), 1);
+                    mm.insert(in.next(), 1);
                 }
                 else 
                 {
-                    mm.insert(currCommand.substring(7, currCommand.indexOf("<")), 0);
-                    mm.insert(currCommand.substring(currCommand.indexOf(">") + 1), 1);
+                    mm.insert(in.next(), 0);
+                    mm.insert(in.next(), 1);
                 }
             }
         }
