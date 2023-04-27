@@ -64,7 +64,7 @@ public class HashTable {
             Handle MHFound = hashTable[probedPosition];
             
             if (MHFound == null) {
-                System.out.println("Hahah can't remove |" + str + "| get fucked");
+                System.out.println("|" + str + "| does not exist in the song database.");
                 break;
             }
             else if (MHFound == Handle.TOMBSTONE) {
@@ -75,6 +75,7 @@ public class HashTable {
                 if (memPoolString.contains(str)) {
                     memPool.remove((MemHandle) MHFound);
                     hashTable[probedPosition] = Handle.TOMBSTONE;
+                    System.out.println("|" + str + "| is removed from the artist database.");
                     break;
                 }
                 else {
