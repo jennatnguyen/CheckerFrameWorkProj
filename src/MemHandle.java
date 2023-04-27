@@ -6,12 +6,17 @@
  * @version 2023.04.25
  */
 public class MemHandle implements Handle{
+    private int start;
+    
     /**
      * Constructor
      */
-    public MemHandle()
+    public MemHandle(int start)
     {
-        // TODO Auto-generated constructor stub
+        this.start = start;
     }
-
+    
+    public int getStart() {
+        return start;
+    }
 }

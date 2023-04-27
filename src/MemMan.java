@@ -29,11 +29,45 @@ import java.util.Scanner;
  * @version 2023.04.25
  */
 public class MemMan {
+    private HashTable songs;
+    private HashTable artists;
+    private MemPool memPool;
+    
+    public MemMan(int hashSize, int blockSize) {
+        songs = new HashTable(hashSize);
+        artists = new HashTable(hashSize);
+        memPool = new MemPool();
+    }
+    
+    /**
+     * 
+     * 
+     * @param str
+     */
+    public void remove(String category, String str) {
+        if (category.equals("song")) {
+            removeHelper(songs, str);
+        }
+        else {
+            removeHelper(artists, str);
+        }
+    }
+    
+    private void removeHelper(HashTable hashTable, String str) {
+        MemHandle MHFound = hashTable.search(str);
+        if (MHFound != null) {
+            
+        }
+    }
+    
     /**
      * @param args the main input files
      * @throws FileNotFoundException
      */
     public static void main(String[] args) throws FileNotFoundException {
+        MemMan manager = new MemMan(Integer.valueOf(args[0]), Integer.valueOf(args[1]));
+        
+        
         File myFile = new File(args[2]);
         Scanner in = new Scanner(myFile);
         while (in.hasNextLine()) {

@@ -7,9 +7,9 @@
  */
 public class HashTable {
 
-    Handle[] hashTable;
-    int currHashTableLen;
-    int totalItems;
+    private Handle[] hashTable;
+    private int currHashTableLen;
+    private int totalItems;
 
     /**
      * Constructor
@@ -30,21 +30,26 @@ public class HashTable {
         if (totalItems > (currHashTableLen / 2)) {
             expandTable();
         }
-        int indexPosition = sFold(str, currHashTableLen);
-        if (hashTable[indexPosition] == null || hashTable[indexPosition] == Handle.TOMBSTONE) {
-            hashTable[indexPosition] = MH;
-            ++totalItems;
+        int homeSlot = sFold(str, currHashTableLen);
+        int collisons = 0;
+        int probedPosition = quadProbe(homeSlot, collisons);
+        while (hashTable[probedPosition] != null || hashTable[homeSlot] == Handle.TOMBSTONE) {
+            collisons++;
+            probedPosition = quadProbe(homeSlot, collisons);
         }
-        else {
-            int probeIteration = 1;
-            int probedPosition = quadProbe(indexPosition, probeIteration);
-            while (hashTable[probedPosition] != null || hashTable[indexPosition] == Handle.TOMBSTONE) {
-                probeIteration++;
-                probedPosition = quadProbe(indexPosition, probeIteration);
-            }
-            hashTable[probedPosition] = MH;
-            ++totalItems;
-        }
+        hashTable[probedPosition] = MH;
+        ++totalItems;
+    }
+    
+    /**
+     * 
+     * 
+     * @param str
+     * @return int
+     */
+    public MemHandle search(String str) {
+        int homeSlot = sFold(str, currHashTableLen);
+        //hashTable[]
     }
     // Helper-Methods-----------------------------------------------------------
     /**
@@ -58,7 +63,9 @@ public class HashTable {
         return (indexPosition + (iteration * iteration)) % currHashTableLen;
     }
     
-    
+    /**
+     * 
+     */
     private void expandTable() {
         Handle[] newHashTable = new Handle[currHashTableLen * 2];
         System.arraycopy(hashTable, 0, newHashTable, 0, currHashTableLen);
