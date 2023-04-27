@@ -117,9 +117,9 @@ public class DLList<E> implements Iterable<E> {
      */
     private void init() {
         head = new DLList.Node<E>(null);
-        tail = new DLList.Node<E>(null);
-        head.setNext(tail);
-        tail.setPrevious(head);
+        setTail(new DLList.Node<E>(null));
+        head.setNext(getTail());
+        getTail().setPrevious(head);
         size = 0;
     }
 
@@ -205,7 +205,7 @@ public class DLList<E> implements Iterable<E> {
 
         Node<E> nodeAfter;
         if (index == size) {
-            nodeAfter = tail;
+            nodeAfter = getTail();
         } 
         else {
             nodeAfter = getNodeAtIndex(index);
@@ -250,7 +250,7 @@ public class DLList<E> implements Iterable<E> {
          * We should go from the end of the list as then we an stop once we find
          * the first one
          */
-        Node<E> current = tail.previous();
+        Node<E> current = getTail().previous();
         for (int i = size() - 1; i >= 0; i--) {
             if (current.getData().equals(obj)) {
                 return i;
@@ -287,7 +287,7 @@ public class DLList<E> implements Iterable<E> {
 
     public boolean remove(E obj) {
         Node<E> current = head.next();
-        while (!current.equals(tail)) {
+        while (!current.equals(getTail())) {
             if (current.getData().equals(obj)) {
                 current.previous().setNext(current.next());
                 current.next().setPrevious(current.previous());
@@ -310,10 +310,10 @@ public class DLList<E> implements Iterable<E> {
         StringBuilder builder = new StringBuilder("{");
         if (!isEmpty()) {
             Node<E> currNode = head.next();
-            while (currNode != tail) {
+            while (currNode != getTail()) {
                 E element = currNode.getData();
                 builder.append(element.toString());
-                if (currNode.next != tail) {
+                if (currNode.next != getTail()) {
                     builder.append(", ");
                 }  
                 currNode = currNode.next();
@@ -342,6 +342,21 @@ public class DLList<E> implements Iterable<E> {
     }
     
     
+    /**
+     * @return the tail
+     */
+    public Node<E> getTail() {
+        return tail;
+    }
+
+    /**
+     * @param tail the tail to set
+     */
+    public void setTail(Node<E> tail) {
+        this.tail = tail;
+    }
+
+
     private class DLListIterator<A> implements Iterator<E> {
         
         private Node<E> next;
@@ -396,7 +411,7 @@ private class RDLListIterator<A> implements Iterator<E> {
         * Creates a new DLListIterator
         */
         public RDLListIterator() {
-            next = tail;
+            next = getTail();
             calledNext = false;
         }
 

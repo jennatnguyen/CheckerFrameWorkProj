@@ -2,7 +2,7 @@
 public interface MemPoolInterface {
     // Insert a record and return its position handle.
     // space contains the record to be inserted, of length size.
-    MemHandle insert(byte[] space, int size);
+    MemHandle insert(byte[] space, short size);
 
     // Free a block at the position specified by theHandle.
     // Merge adjacent free blocks.
