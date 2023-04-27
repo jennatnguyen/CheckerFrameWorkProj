@@ -188,8 +188,13 @@ public class DLList<E> implements Iterable<E> {
     public void sortedAdd(E newEntry) {
         if (newEntry instanceof FreeBlock) {
             FreeBlock entry = (FreeBlock) newEntry;
-            int entryStart = entry.getStart();
-            int entryEnd = entry.getEnd();
+            int i = 0;
+            Node<E> curr = head;
+            while (curr.next() != null) {
+                
+                
+                curr = curr.next();
+            }
             
         }
     }
