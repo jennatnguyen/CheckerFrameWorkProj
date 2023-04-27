@@ -28,9 +28,15 @@ public class HashTable {
      * @param str
      * @param MH
      */
-    public void insert(String str, MemHandle MH) {
+    public void insert(String str, MemHandle MH, int table) {
         if (totalItems > (currHashTableLen / 2)) {
             expandTable();
+            if (table == 0) {
+                System.out.println("Artist hash table size doubled.");
+            }
+            else {
+                System.out.println("Song hash table size doubled.");
+            }
         }
         int homeSlot = sFold(str, currHashTableLen);
         int collisons = 0;
@@ -59,6 +65,7 @@ public class HashTable {
             
             if (MHFound == null) {
                 System.out.println("Hahah can't remove |" + str + "| get fucked");
+                break;
             }
             else if (MHFound == Handle.TOMBSTONE) {
                 ++collisions;
@@ -68,6 +75,7 @@ public class HashTable {
                 if (memPoolString.contains(str)) {
                     memPool.remove((MemHandle) MHFound);
                     hashTable[probedPosition] = Handle.TOMBSTONE;
+                    break;
                 }
                 else {
                     ++collisions;

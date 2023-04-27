@@ -111,9 +111,17 @@ public class MemPool implements MemPoolInterface{
      * @param theHandle
      */
     @Override
-    public void remove(MemHandle theHandle)
-    {
-        // TODO Auto-generated method stub
+    public void remove(MemHandle theHandle) {
+        int index = -1;
+        Iterator<FreeBlock> itr = list.iterator();
+        while (itr.hasNext()) {
+            FreeBlock FBlock = itr.next();
+            index++;
+            if (FBlock.getEnd() == theHandle.getStart()) {
+                break;
+            }
+        }
+        
         
     }
 
