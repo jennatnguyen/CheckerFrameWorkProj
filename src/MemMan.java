@@ -34,9 +34,9 @@ public class MemMan {
     private MemPool memPool;
     
     public MemMan(int hashSize, int blockSize) {
-        songs = new HashTable(hashSize);
-        artists = new HashTable(hashSize);
         memPool = new MemPool();
+        songs = new HashTable(hashSize, memPool);
+        artists = new HashTable(hashSize, memPool);
     }
     
     /**
@@ -54,9 +54,10 @@ public class MemMan {
     }
     
     private void removeHelper(HashTable hashTable, String str) {
-        MemHandle MHFound = hashTable.search(str);
-        if (MHFound != null) {
-            
+        Handle MHFound = hashTable.search(str);
+        //if (Mempool.search(MHFound);
+        if (MHFound != null && MHFound != Handle.TOMBSTONE) {
+            memPool.remove((MemHandle) MHFound);
         }
     }
     

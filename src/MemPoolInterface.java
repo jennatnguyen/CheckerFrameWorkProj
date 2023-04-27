@@ -11,7 +11,7 @@ public interface MemPoolInterface {
     // Return the record with handle posHandle, up to size bytes, by
     // copying it into space.
     // Return the number of bytes actually copied into space.
-    int get(byte[] space, MemHandle theHandle, int size);
+    String get(MemHandle theHandle);
 
     // Dump a printout of the freeblock list
     void dump();

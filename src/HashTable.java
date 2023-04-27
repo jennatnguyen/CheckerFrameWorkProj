@@ -10,14 +10,16 @@ public class HashTable {
     private Handle[] hashTable;
     private int currHashTableLen;
     private int totalItems;
+    private MemPool memPool;
 
     /**
      * Constructor
      */
-    public HashTable(int initHashTableLen)
+    public HashTable(int initHashTableLen, MemPool memPool)
     {
         this.currHashTableLen = initHashTableLen;
         hashTable = new Handle[currHashTableLen];
+        this.memPool = memPool;
     }
     
     /**
@@ -47,9 +49,16 @@ public class HashTable {
      * @param str
      * @return int
      */
-    public MemHandle search(String str) {
+    public Handle search(String str) {
+        
         int homeSlot = sFold(str, currHashTableLen);
-        //hashTable[]
+        int collisons = 0;
+        while (!found) {
+            int probedPosition = quadProbe(homeSlot, collisons);
+            Handle MHFound = hashTable[homeSlot];
+            memPool.get((MemHandle) MHFound);
+            
+        }
     }
     // Helper-Methods-----------------------------------------------------------
     /**
