@@ -115,16 +115,27 @@ public class MemPool implements MemPoolInterface{
      */
     @Override
     public void remove(MemHandle theHandle) {
-        int index = -1;
-        Iterator<FreeBlock> itr = list.iterator();
-        while (itr.hasNext()) {
-            FreeBlock FBlock = itr.next();
-            index++;
-            if (FBlock.getEnd() == theHandle.getStart()) {
-                break;
-            }
-        }
+        ByteBuffer bb = ByteBuffer.wrap(pool);
+        bb.position(theHandle.getStart());
+        short size = bb.getShort();
+        FreeBlock newFBlock = new FreeBlock(theHandle.getStart(), theHandle.getStart() + 2 + size);
+        list.sortedAdd(newFBlock);
         
+        
+        // check for cases
+        // case 0: Removing the first thing, followed by a MemHandle  m->M->F       replace and insert new F
+        // case 1: Removing the first thing, followed by a FreeBlock  m->F->M       replace and combine
+        // case 2: after FreeBlock, followed by MemHandle  F->m->M                  replace and combine
+        // case 3: stand alone, merge with next free block  F->m->F                 replace and combine
+        // case 4: Remove in the middle of other MemHandles  M->m->M                replace and insert Insert new F
+        // case 5: Remove after MemHandle followed by FreeBlock  M->m->F            replace and combine
+        
+    }
+    
+    /**
+     * 
+     */
+    private void merge() {
         
     }
 
