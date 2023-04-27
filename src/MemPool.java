@@ -47,16 +47,14 @@ public class MemPool implements MemPoolInterface{
     /**
      * 
      * 
-     * @param space
      * @param theHandle
-     * @param size
-     * @return int
+     * @return string
      */
     @Override
-    public int get(byte[] space, MemHandle theHandle, int size)
+    public String get(MemHandle theHandle)
     {
         // TODO Auto-generated method stub
-        return 0;
+        return "";
     }
 
     

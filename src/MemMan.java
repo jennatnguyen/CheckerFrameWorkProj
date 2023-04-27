@@ -29,17 +29,14 @@ import java.util.Scanner;
  * @version 2023.04.25
  */
 public class MemMan {
-    private HashTable songs;
-    private HashTable artists;
     private MemPool memPool;
     private HashTable[] tables;
+    
     public MemMan(int hashSize, int blockSize) {
-        songs = new HashTable(hashSize);
-        artists = new HashTable(hashSize);
-        tables = new HashTable[2];
-        tables[0] = new HashTable(hashSize);
-        tables[1] = new HashTable(hashSize);
         memPool = new MemPool();
+        tables = new HashTable[2];
+        tables[0] = new HashTable(hashSize, memPool);
+        tables[1] = new HashTable(hashSize, memPool);
     }
     
     /**
@@ -57,9 +54,10 @@ public class MemMan {
     }
     
     private void removeHelper(HashTable hashTable, String str) {
-        MemHandle MHFound = hashTable.search(str);
-        if (MHFound != null) {
-            
+        Handle MHFound = hashTable.search(str);
+        //if (Mempool.search(MHFound);
+        if (MHFound != null && MHFound != Handle.TOMBSTONE) {
+            memPool.remove((MemHandle) MHFound);
         }
     }
     
