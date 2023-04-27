@@ -8,7 +8,7 @@
 public class MemPool implements MemPoolInterface{
 
     /**
-     * Constructor
+     * Constructor balls
      */
     public MemPool()
     {

@@ -29,14 +29,14 @@ import java.util.Scanner;
  * @version 2023.04.25
  */
 public class MemMan {
-    private HashTable songs;
-    private HashTable artists;
     private MemPool memPool;
+    private HashTable[] tables;
     
     public MemMan(int hashSize, int blockSize) {
         memPool = new MemPool();
-        songs = new HashTable(hashSize, memPool);
-        artists = new HashTable(hashSize, memPool);
+        tables = new HashTable[2];
+        tables[0] = new HashTable(hashSize, memPool);
+        tables[1] = new HashTable(hashSize, memPool);
     }
     
     /**
@@ -61,6 +61,23 @@ public class MemMan {
         }
     }
     
+    private void insertSong(String str)
+    { 
+        /*
+         * start with hash table 
+         * ->check if there are duplicates (a whole thing)(After milestone 1)
+         * ->insert the String into the memory pool
+         * ->Search through all the free blocks, check for the smallest which can house the string
+         * ->add the string in and adjust the free block which houses it. 
+         * ->check if the freeblock is empty, if so, free it and adjust the list
+         * ->get the memory handle with the starting position of the inserted string
+         * -> have hash table hash the artist and the song string, find a position,  
+         * deal with collisions, expansions and insert the MH into that position
+         *
+         */
+        
+    }
+    
     /**
      * @param args the main input files
      * @throws FileNotFoundException
@@ -71,8 +88,26 @@ public class MemMan {
         
         File myFile = new File(args[2]);
         Scanner in = new Scanner(myFile);
+        String currCommand = "";
         while (in.hasNextLine()) {
-            
+            currCommand = in.next();
+            if (currCommand.startsWith("insert")))
+            {
+                if (currCommand.substring(7, 13).equals("artist"))
+                {
+                    
+                }
+                if (currCommand.substring(7, 11).equals("song"))
+                {
+                    
+                }
+                else 
+                {
+                    String artist = str.substring(0, str.indexOf("<"));
+                    String song = str.substring(str.indexOf(">") + 1, str.length());
+                    
+                }
+            }
         }
         in.close();
     }
