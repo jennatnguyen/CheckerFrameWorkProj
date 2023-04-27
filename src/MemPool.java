@@ -75,6 +75,9 @@ public class MemPool implements MemPoolInterface{
             if (lowLen == Integer.MAX_VALUE)
             {
                 //this means none of the freeblocks can store this song
+                //there is the rare possibility that this new string is bigger
+                //than initSize in which case this code throws an exception but that's a
+                //problem for later me to deal with
                 byte[] newPool = new byte[pool.length + initSize];
                 System.arraycopy(pool, 0, newPool, 0, pool.length);
                 pool = newPool;
@@ -138,7 +141,6 @@ public class MemPool implements MemPoolInterface{
         // TODO Auto-generated method stub
         return "";
     }
-
     
     /**
      * 
