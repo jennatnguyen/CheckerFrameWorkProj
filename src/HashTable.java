@@ -89,7 +89,7 @@ public class HashTable {
      * 
      * 
      * @param str
-     * @return MemHandel
+     * @return MemHandle returns null if not found, otherwise returns the memory handle
      */
     public MemHandle search(String str) {
         int homeSlot = sFold(str, currHashTableLen);
