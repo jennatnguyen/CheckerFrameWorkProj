@@ -86,7 +86,7 @@ public class MemPool implements MemPoolInterface{
                 list.get(list.size()).setStart(bb.position());
                 list.get(list.size()).setEnd(pool.length);
                 index = list.size(); 
-                System.out.println("Memory pool expanded to be "+pool.length+" bytes.")
+                System.out.println("Memory pool expanded to be "+pool.length+" bytes.");
             }
             else 
             {
