@@ -55,14 +55,6 @@ public class MemMan {
         }
     }
     
-
-    private void removeHelper(HashTable hashTable, String str) {
-        Handle MHFound = hashTable.search(str);
-        //if (Mempool.search(MHFound);
-        if (MHFound != null && MHFound != Handle.TOMBSTONE) {
-            memPool.remove((MemHandle) MHFound);
-        }
-    }
     /**
      * inserts the String into the corresponding hash table
      * and the memory pool
@@ -85,7 +77,7 @@ public class MemMan {
          */
         
         MemHandle MH = memPool.insert(str.getBytes(), (short)(str.getBytes().length));
-        tables[table].insert(str, MH);
+        tables[table].insert(str, MH, Integer.valueOf(table));
     }
     
     /**

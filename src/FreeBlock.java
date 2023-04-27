@@ -15,7 +15,6 @@ public class FreeBlock {
     {
         this.setStart(nStart);
         this.setEnd(nEnd);
-        // TODO Auto-generated constructor stub
     }
     /**
      * @return the start
