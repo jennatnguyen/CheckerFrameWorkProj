@@ -35,7 +35,9 @@ public class MemMan {
     public MemMan(int hashSize, int blockSize) {
         memPool = new MemPool(blockSize);
         tables = new HashTable[2];
+        // tables[0]: artists
         tables[0] = new HashTable(hashSize, memPool);
+        // tables[0]: artists
         tables[1] = new HashTable(hashSize, memPool);
     }
     
@@ -45,14 +47,15 @@ public class MemMan {
      * @param str
      */
     public void remove(String category, String str) {
-        if (category.equals("song")) {
-            removeHelper(songs, str);
+        if (category.equals("artist")) {
+            tables[0].remove(str);
         }
         else {
-            removeHelper(artists, str);
+            tables[1].remove(str);
         }
     }
     
+
     private void removeHelper(HashTable hashTable, String str) {
         Handle MHFound = hashTable.search(str);
         //if (Mempool.search(MHFound);
@@ -91,7 +94,6 @@ public class MemMan {
      */
     public static void main(String[] args) throws FileNotFoundException {
         MemMan manager = new MemMan(Integer.valueOf(args[0]), Integer.valueOf(args[1]));
-        
         
         File myFile = new File(args[2]);
         Scanner in = new Scanner(myFile);
