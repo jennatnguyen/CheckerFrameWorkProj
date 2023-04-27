@@ -118,25 +118,52 @@ public class MemPool implements MemPoolInterface{
         ByteBuffer bb = ByteBuffer.wrap(pool);
         bb.position(theHandle.getStart());
         short size = bb.getShort();
-        FreeBlock newFBlock = new FreeBlock(theHandle.getStart(), theHandle.getStart() + 2 + size);
-        list.sortedAdd(newFBlock);
+        FreeBlock newFBlock = new FreeBlock(theHandle.getStart(), theHandle.getStart() + 2 + size);        
+        
+        if (newFBlock.getStart() < list.get(0).getStart()) {
+            list.add(0, newFBlock);
+            merge(0);
+        }
+        else if (newFBlock.getStart() > list.get(list.size() -1).getEnd()) {
+            list.add(newFBlock);
+            merge(list.size() - 1);
+        }
+        else {
+            FreeBlock curr, prev;
+            for (int i = 1; i < list.size(); i++)
+            {
+                curr = list.get(i);
+                prev = list.get(i -1);
+                if (newFBlock.getStart() >= prev.getEnd() && newFBlock.getStart() < curr.getStart()) {
+                    list.add(i, newFBlock);
+                    merge(i);
+                    break;
+                }
+            }
+        }
         
         
         // check for cases
-        // case 0: Removing the first thing, followed by a MemHandle  m->M->F       replace and insert new F
-        // case 1: Removing the first thing, followed by a FreeBlock  m->F->M       replace and combine
-        // case 2: after FreeBlock, followed by MemHandle  F->m->M                  replace and combine
-        // case 3: stand alone, merge with next free block  F->m->F                 replace and combine
-        // case 4: Remove in the middle of other MemHandles  M->m->M                replace and insert Insert new F
-        // case 5: Remove after MemHandle followed by FreeBlock  M->m->F            replace and combine
+        // case 0: Removing the first thing, followed by a MemHandle  m->M->F       
+        // case 1: Removing the first thing, followed by a FreeBlock  m->F->M       
+        // case 2: after FreeBlock, followed by MemHandle  F->m->M                  
+        // case 3: stand alone, merge with next free block  F->m->F                 
+        // case 4: Remove in the middle of other MemHandles  M->m->M                
+        // case 5: Remove after MemHandle followed by FreeBlock  M->m->F            
         
     }
     
     /**
      * 
      */
-    private void merge() {
-        
+    private void merge(int index) {
+        if (list.get(index).getStart() == list.get(index - 1).getEnd()) {
+            list.get(index - 1).setEnd(list.get(index).getEnd());
+            list.remove(index);
+            if (index < list.size()) {
+                merge(index);
+            }
+        }
     }
 
     
