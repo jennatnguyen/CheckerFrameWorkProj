@@ -43,21 +43,68 @@ public class HashTable {
         ++totalItems;
     }
     
+    
     /**
      * 
      * 
      * @param str
-     * @return int
+     * @return MemHandel
      */
-    public Handle search(String str) {
-        
+    public void remove(String str) {
         int homeSlot = sFold(str, currHashTableLen);
-        int collisons = 0;
-        while (!found) {
-            int probedPosition = quadProbe(homeSlot, collisons);
-            Handle MHFound = hashTable[homeSlot];
-            memPool.get((MemHandle) MHFound);
+        int collisions = 0;
+        while (true) {
+            int probedPosition = quadProbe(homeSlot, collisions);
+            Handle MHFound = hashTable[probedPosition];
             
+            if (MHFound == null) {
+                System.out.println("Hahah can't remove |" + str + "| get fucked");
+            }
+            else if (MHFound == Handle.TOMBSTONE) {
+                ++collisions;
+            }
+            else {
+                String memPoolString = memPool.get((MemHandle) MHFound);
+                if (memPoolString.contains(str)) {
+                    memPool.remove((MemHandle) MHFound);
+                    hashTable[probedPosition] = Handle.TOMBSTONE;
+                }
+                else {
+                    ++collisions;
+                }
+            }
+        }
+    }
+    
+    
+    /**
+     * 
+     * 
+     * @param str
+     * @return MemHandel
+     */
+    public MemHandle search(String str) {
+        int homeSlot = sFold(str, currHashTableLen);
+        int collisions = 0;
+        while (true) {
+            int probedPosition = quadProbe(homeSlot, collisions);
+            Handle MHFound = hashTable[probedPosition];
+            
+            if (MHFound == null) {
+                return null;
+            }
+            else if (MHFound == Handle.TOMBSTONE) {
+                ++collisions;
+            }
+            else {
+                String memPoolString = memPool.get((MemHandle) MHFound);
+                if (memPoolString.contains(str)) {
+                    return (MemHandle) MHFound;
+                }
+                else {
+                    ++collisions;
+                }
+            }
         }
     }
     // Helper-Methods-----------------------------------------------------------

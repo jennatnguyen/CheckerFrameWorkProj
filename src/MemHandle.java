@@ -19,4 +19,20 @@ public class MemHandle implements Handle{
     public int getStart() {
         return start;
     }
+    
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        else if (obj == null) {
+            return false;
+        }
+        else if (obj.getClass() == this.getClass()) {
+            MemHandle other = (MemHandle) obj;
+            return this.getStart() == other.getStart();
+        }
+        else {
+            return false;
+        }
+    }
 }
