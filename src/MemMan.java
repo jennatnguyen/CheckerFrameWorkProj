@@ -33,7 +33,7 @@ public class MemMan {
     private HashTable[] tables;
     
     public MemMan(int hashSize, int blockSize) {
-        memPool = new MemPool();
+        memPool = new MemPool(blockSize);
         tables = new HashTable[2];
         // tables[0]: artists
         tables[0] = new HashTable(hashSize, memPool);
@@ -55,8 +55,22 @@ public class MemMan {
         }
     }
     
-    
-    private void insertSong(String str)
+
+    private void removeHelper(HashTable hashTable, String str) {
+        Handle MHFound = hashTable.search(str);
+        //if (Mempool.search(MHFound);
+        if (MHFound != null && MHFound != Handle.TOMBSTONE) {
+            memPool.remove((MemHandle) MHFound);
+        }
+    }
+    /**
+     * inserts the String into the corresponding hash table
+     * and the memory pool
+     * @param str is the String to be inserted
+     * @param table table 0 means insert into table 0 (artists), 
+     * 1 means insert into table 1(songs).
+     */
+    private void insert(String str, int table)
     { 
         /*
          * start with hash table 
@@ -68,9 +82,10 @@ public class MemMan {
          * ->get the memory handle with the starting position of the inserted string
          * -> have hash table hash the artist and the song string, find a position,  
          * deal with collisions, expansions and insert the MH into that position
-         *
          */
         
+        MemHandle MH = memPool.insert(str.getBytes(), (short)(str.getBytes().length));
+        tables[table].insert(str, MH);
     }
     
     /**
@@ -83,23 +98,23 @@ public class MemMan {
         File myFile = new File(args[2]);
         Scanner in = new Scanner(myFile);
         String currCommand = "";
+        MemMan mm = new MemMan(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
         while (in.hasNextLine()) {
             currCommand = in.next();
             if (currCommand.startsWith("insert"))
             {
                 if (currCommand.substring(7, 13).equals("artist"))
                 {
-                    
+                    mm.insert(currCommand.substring(13), 0);
                 }
                 if (currCommand.substring(7, 11).equals("song"))
                 {
-                    
+                    mm.insert(currCommand.substring(11), 1);
                 }
                 else 
                 {
-                    String artist = str.substring(0, str.indexOf("<"));
-                    String song = str.substring(str.indexOf(">") + 1, str.length());
-                    
+                    mm.insert(currCommand.substring(7, currCommand.indexOf("<")), 0);
+                    mm.insert(currCommand.substring(currCommand.indexOf(">") + 1), 1);
                 }
             }
         }

@@ -7,12 +7,39 @@
  */
 public class FreeBlock {
 
+    private int start, end;
     /**
      * Constructor
      */
-    public FreeBlock()
+    public FreeBlock(int nStart, int nEnd)
     {
+        this.setStart(nStart);
+        this.setEnd(nEnd);
         // TODO Auto-generated constructor stub
+    }
+    /**
+     * @return the start
+     */
+    public int getStart() {
+        return start;
+    }
+    /**
+     * @param start the start to set
+     */
+    public void setStart(int start) {
+        this.start = start;
+    }
+    /**
+     * @return the end
+     */
+    public int getEnd() {
+        return end;
+    }
+    /**
+     * @param end the end to set
+     */
+    public void setEnd(int end) {
+        this.end = end;
     }
 
 }
