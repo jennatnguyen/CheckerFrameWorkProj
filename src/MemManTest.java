@@ -32,6 +32,7 @@ public class MemManTest extends student.TestCase {
         } 
         catch (Exception e) {
             thrown = e;
+            System.out.println(e);
         }
         assertTrue(thrown == null);
         String output = systemOut().getHistory();

@@ -29,7 +29,7 @@ public class HashTable {
      * @param MH
      */
     public void insert(String str, MemHandle MH, int table) {
-        if (totalItems > (currHashTableLen / 2)) {
+        if (totalItems >= (currHashTableLen / 2)) {
             expandTable();
             if (table == 0) {
                 System.out.println("Artist hash table size doubled.");

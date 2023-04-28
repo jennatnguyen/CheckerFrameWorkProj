@@ -83,7 +83,7 @@ public class MemPool implements MemPoolInterface{
                 pool = newPool;
                 bb = ByteBuffer.wrap(pool);
                 list.getTail().previous().getData().setEnd(pool.length - 1);
-                System.out.println("Memory pool expanded to be " + pool.length + " bytes.");
+                //System.out.println("Memory pool expanded to be " + pool.length + " bytes.");
                 return(this.insert(space, size));                
             }
             else 
@@ -96,7 +96,7 @@ public class MemPool implements MemPoolInterface{
             }
             if (list.get(index).getEnd() == list.get(index).getStart()) // Has to be index not list.size()
             {
-                list.remove(list.size());
+                list.remove(index);
             }
             return new MemHandle(MH);
         }
