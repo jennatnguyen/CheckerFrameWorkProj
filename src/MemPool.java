@@ -78,11 +78,18 @@ public class MemPool implements MemPoolInterface{
                 //there is the rare possibility that this new string is bigger
                 //than initSize in which case this code throws an exception but that's a
                 //problem for later me to deal with
+                if (list.getTail().previous().getData().getEnd() < pool.length - 1)
+                {
+                    list.add(new FreeBlock(pool.length, pool.length + initSize));
+                }
+                else
+                {
+                    list.getTail().previous().getData().setEnd(pool.length + initSize - 1);
+                }
                 byte[] newPool = new byte[pool.length + initSize];
                 System.arraycopy(pool, 0, newPool, 0, pool.length);
                 pool = newPool;
-                bb = ByteBuffer.wrap(pool);
-                list.getTail().previous().getData().setEnd(pool.length - 1);
+                bb = ByteBuffer.wrap(pool);                
                 //System.out.println("Memory pool expanded to be " + pool.length + " bytes.");
                 return(this.insert(space, size));                
             }

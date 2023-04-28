@@ -80,7 +80,7 @@ public class MemMan {
             int size = memPool.pool.length;
             MemHandle MH = memPool.insert(str.getBytes(), (short)(str.getBytes().length));
             tables[table].insert(str, MH, table);
-            if (MH.getStart() >= size)
+            if (MH.getStart() + 2 + (str.getBytes().length) >= size)
             {
                 System.out.println("Memory pool expanded to be " + memPool.pool.length + " bytes.");
             }
@@ -100,7 +100,7 @@ public class MemMan {
             int size = memPool.pool.length - 1;
             MemHandle MH = memPool.insert(art.getBytes(), (short)(art.getBytes().length));
             tables[0].insert(art, MH, 0);
-            if (MH.getStart() + 2 + (son.getBytes().length) >= size)
+            if (MH.getStart() + 2 + (art.getBytes().length) >= size)
                 flag = true;
             System.out.println("|"+art+"| is added to the "+"artist" +" database.");
         }
@@ -158,13 +158,8 @@ public class MemMan {
                         String content = lineItem.nextLine();
                         Scanner contentIn = new Scanner(content);
                         contentIn.useDelimiter("<SEP>");
-                        if (content.contains("<SEP>"))
-                            manager.insertCombo(contentIn.next().trim(), contentIn.next().trim());
-                        else
-                        {
-                            manager.insert(contentIn.next().trim(), 0);
-                            manager.insert(contentIn.next().trim(), 1);
-                        }
+                        manager.insert(contentIn.next().trim(), 0);
+                        manager.insert(contentIn.next().trim(), 1);
                         contentIn.close();
                     }
                     else if (command.equals("remove")) {
