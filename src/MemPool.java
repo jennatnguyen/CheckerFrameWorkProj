@@ -198,5 +198,13 @@ public class MemPool implements MemPoolInterface{
     {
         System.out.println(list.toString());
     }
+    
+    /**
+     * used for testing, to see what the pool looks like
+     */
+    protected void printOut()
+    {
+        System.out.println(new String(pool));
+    }
 
 }
