@@ -116,6 +116,18 @@ public class HashTable {
             }
         }
     }
+    
+    public void printHashTable(String cat) {
+        int count = 0;
+        for (Handle memHandle : hashTable) {
+            if (memHandle != Handle.TOMBSTONE && memHandle != null) {
+                MemHandle thisHandle = (MemHandle) memHandle;
+                System.out.println("|" + memPool.get(thisHandle) + "| " + thisHandle.getStart());
+                count++;
+            }
+        }
+        System.out.println("total " + cat + ": " + count);
+    }
     // Helper-Methods-----------------------------------------------------------
     /**
      * 
