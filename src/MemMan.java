@@ -77,13 +77,52 @@ public class MemMan {
          */
         if (tables[table].search(str) == null)
         {
+            int size = memPool.pool.length;
             MemHandle MH = memPool.insert(str.getBytes(), (short)(str.getBytes().length));
             tables[table].insert(str, MH, table);
+            if (MH.getStart() >= size)
+            {
+                System.out.println("Memory pool expanded to be " + memPool.pool.length + " bytes.");
+            }
             System.out.println("|"+str+"| is added to the "+((table == 0)?"artist" : "song") +" database.");
         }
         else 
         {
             System.out.println("|"+str+"| duplicates a record already in " + ((table == 0)?"artist" : "song") +" database.");
+        }
+    }
+    
+    private void insertCombo(String art, String son)
+    {
+        boolean flag = false;
+        if (tables[0].search(art) == null)
+        {
+            int size = memPool.pool.length - 1;
+            MemHandle MH = memPool.insert(art.getBytes(), (short)(art.getBytes().length));
+            tables[0].insert(art, MH, 0);
+            if (MH.getStart() + 2 + (son.getBytes().length) >= size)
+                flag = true;
+            System.out.println("|"+art+"| is added to the "+"artist" +" database.");
+        }
+        else 
+        {
+            System.out.println("|"+art+"| duplicates a record already in " + "artist" +" database.");
+        }
+        if (tables[1].search(son) == null)
+        {
+            int size = memPool.pool.length - 1;
+            MemHandle MH = memPool.insert(son.getBytes(), (short)(son.getBytes().length));
+            tables[1].insert(son, MH, 1);
+            if (MH.getStart() + 2 + (son.getBytes().length) >= size || flag)
+            {
+                System.out.println("Memory pool expanded to be " + memPool.pool.length + " bytes.");
+            }
+            System.out.println("|"+son+"| is added to the "+"song" +" database.");
+
+        }
+        else 
+        {
+            System.out.println("|"+son+"| duplicates a record already in " + "song" +" database.");
         }
     }
     
@@ -119,8 +158,13 @@ public class MemMan {
                         String content = lineItem.nextLine();
                         Scanner contentIn = new Scanner(content);
                         contentIn.useDelimiter("<SEP>");
-                        manager.insert(contentIn.next().trim(), 0);
-                        manager.insert(contentIn.next().trim(), 1);
+                        if (content.contains("<SEP>"))
+                            manager.insertCombo(contentIn.next().trim(), contentIn.next().trim());
+                        else
+                        {
+                            manager.insert(contentIn.next().trim(), 0);
+                            manager.insert(contentIn.next().trim(), 1);
+                        }
                         contentIn.close();
                     }
                     else if (command.equals("remove")) {
