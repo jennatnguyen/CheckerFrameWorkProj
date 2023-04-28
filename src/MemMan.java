@@ -125,7 +125,7 @@ public class MemMan {
                     }
                     else if (command.equals("remove")) {
                         String category = lineItem.next().trim();
-                        manager.remove(category, lineItem.next().trim());
+                        manager.remove(category, lineItem.nextLine().trim());
                     }
                     else {
                         String category = lineItem.next().trim();
