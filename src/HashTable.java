@@ -119,10 +119,13 @@ public class HashTable {
     
     public void printHashTable(String cat) {
         int count = 0;
+        int total = -1;
         for (Handle memHandle : hashTable) {
+            ++total;
             if (memHandle != Handle.TOMBSTONE && memHandle != null) {
                 MemHandle thisHandle = (MemHandle) memHandle;
-                System.out.println("|" + memPool.get(thisHandle) + "| " + thisHandle.getStart());
+                System.out.println("|" + memPool.get(thisHandle) + "| " + total);
+                // thisHandle.getStart()
                 count++;
             }
         }
