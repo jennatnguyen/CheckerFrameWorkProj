@@ -66,7 +66,7 @@ public class MemPool implements MemPoolInterface{
             {
                 fb = list.get(i);
                 fbLen = fb.getEnd() - fb.getStart();
-                if (fbLen >= size && fbLen < lowLen)
+                if (fbLen >= (size+2) && fbLen < lowLen)
                 {
                     index = i;
                     lowLen = fbLen;

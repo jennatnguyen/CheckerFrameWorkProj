@@ -45,17 +45,14 @@ public class MemPoolTest extends TestCase {
         
         mp.insert("Nonstop".getBytes(), ((short)"Nonstop".getBytes().length));
         assertEquals(mp.get(new MemHandle(0)), "Nonstop");
-        mp.printOut();
-        mp.dump();
+        
         mp.insert("No Role Modelz".getBytes(), ((short)"No Role Modelz".getBytes().length)); 
-        mp.printOut();
-        mp.dump();
+        
         assertEquals(mp.get(new MemHandle("Nonstop".getBytes().length + 2)), "No Role Modelz");
         
         //will have to expand to fit Love yourz 
         mp.insert("Love yourz".getBytes(), ((short)"Love yourz".getBytes().length));
         assertEquals(mp.get(new MemHandle("Nonstop".getBytes().length + "No Role Modelz".getBytes().length + 4)), "Love yourz");
-        
         mp.remove(new MemHandle("Nonstop".getBytes().length + 2));
         //should remove No Role Modelz
         assertEquals(mp.get(new MemHandle("Nonstop".getBytes().length + "No Role Modelz".getBytes().length + 4)), "Love yourz");
@@ -91,7 +88,11 @@ public class MemPoolTest extends TestCase {
         //5,8,6,4,3,7,5
         //now we will remove the 8, 4, 7
         mp.remove(new MemHandle("Non".getBytes().length + 2));
+        mp.printOut();
+        mp.dump();
         mp.remove(new MemHandle("Non".getBytes().length + "Modelz".getBytes().length + "Love".getBytes().length + 6));
+        mp.printOut();
+        mp.dump();
         mp.remove(new MemHandle("Non".getBytes().length + "Modelz".getBytes().length + "Love".getBytes().length + "A".getBytes().length + "Up".getBytes().length + 10));
         mp.printOut();
         mp.dump();
