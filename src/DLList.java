@@ -25,7 +25,7 @@ public class DLList<E> implements Iterable<E> {
      * @author Mark Wiggans (mmw125)
      * @version 4/14/2015
      */
-    private static class Node<E> {
+    protected static class Node<E> {
         private Node<E> next;
         private Node<E> previous;
         private E data;
@@ -181,23 +181,6 @@ public class DLList<E> implements Iterable<E> {
     public void add(E newEntry) {
         add(size(), newEntry);
     }
-    
-    /**
-     * 
-     */
-    public void sortedAdd(E newEntry) {
-        if (newEntry instanceof FreeBlock) {
-            FreeBlock entry = (FreeBlock) newEntry;
-            int i = 0;
-            Node<E> curr = head;
-            while (curr.next() != null) {
-                
-                
-                curr = curr.next();
-            }
-            
-        }
-    }
 
     /**
      * Adds the object to the position in the list
@@ -324,20 +307,20 @@ public class DLList<E> implements Iterable<E> {
      */
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder("{");
+        StringBuilder builder = new StringBuilder("");
         if (!isEmpty()) {
             Node<E> currNode = head.next();
             while (currNode != getTail()) {
                 E element = currNode.getData();
                 builder.append(element.toString());
                 if (currNode.next != getTail()) {
-                    builder.append(", ");
+                    builder.append(" -> ");
                 }  
                 currNode = currNode.next();
             }
         }
 
-        builder.append("}");
+        //builder.append("}");
         return builder.toString();
     }
 

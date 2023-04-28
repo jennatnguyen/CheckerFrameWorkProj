@@ -87,6 +87,18 @@ public class MemMan {
         }
     }
     
+    public void print(String category) {
+        if (category.equals("blocks")) {
+            memPool.dump();
+        }
+        else if (category.equals("artists")) {
+            tables[0].printHashTable(category);
+        }
+        else {
+            tables[1].printHashTable(category);
+        }
+    }
+    
     /**
      * @param args the main input files
      * @throws FileNotFoundException
@@ -96,26 +108,31 @@ public class MemMan {
         
         File myFile = new File(args[2]);
         Scanner in = new Scanner(myFile);
-        String currWord = "";
-        MemMan mm = new MemMan(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
         while (in.hasNextLine()) {
-            currWord = in.next();
-            if (currWord.equals("insert"))
-            {
-                currWord = in.next();
-                if (currWord.equals("artist"))
-                {
-                    mm.insert(in.next(), 0);
+            String line = in.nextLine().trim();
+            if (line.length() != 0) {
+                Scanner lineItem = new Scanner(line);
+                if (lineItem.hasNext()) {
+                    String command = lineItem.next();
+                    if (command.equals("insert")) {
+                        //insert
+                        String content = lineItem.nextLine();
+                        Scanner contentIn = new Scanner(content);
+                        contentIn.useDelimiter("<SEP>");
+                        manager.insert(contentIn.next().trim(), 0);
+                        manager.insert(contentIn.next().trim(), 1);
+                        contentIn.close();
+                    }
+                    else if (command.equals("remove")) {
+                        String category = lineItem.next().trim();
+                        manager.remove(category, lineItem.next().trim());
+                    }
+                    else {
+                        String category = lineItem.next().trim();
+                        manager.print(category);
+                    }
                 }
-                else if (currWord.equals("song"))
-                {
-                    mm.insert(in.next(), 1);
-                }
-                else 
-                {
-                    mm.insert(in.next(), 0);
-                    mm.insert(in.next(), 1);
-                }
+                lineItem.close();
             }
         }
         in.close();
