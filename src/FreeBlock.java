@@ -40,5 +40,13 @@ public class FreeBlock {
     public void setEnd(int end) {
         this.end = end;
     }
+    
+    /**
+     * 
+     */
+    @Override
+    public String toString() {
+        return "(" + start + "," + end + ")";
+    }
 
 }

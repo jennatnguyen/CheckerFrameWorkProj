@@ -307,20 +307,20 @@ public class DLList<E> implements Iterable<E> {
      */
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder("{");
+        StringBuilder builder = new StringBuilder("");
         if (!isEmpty()) {
             Node<E> currNode = head.next();
             while (currNode != getTail()) {
                 E element = currNode.getData();
                 builder.append(element.toString());
                 if (currNode.next != getTail()) {
-                    builder.append(", ");
+                    builder.append(" -> ");
                 }  
                 currNode = currNode.next();
             }
         }
 
-        builder.append("}");
+        //builder.append("}");
         return builder.toString();
     }
 

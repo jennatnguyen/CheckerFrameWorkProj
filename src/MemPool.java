@@ -205,7 +205,7 @@ public class MemPool implements MemPoolInterface{
     @Override
     public void dump()
     {
-        System.out.println("");
+        System.out.println(list.toString());
     }
 
 }
