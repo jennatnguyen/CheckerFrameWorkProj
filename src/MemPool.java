@@ -82,10 +82,9 @@ public class MemPool implements MemPoolInterface{
                 System.arraycopy(pool, 0, newPool, 0, pool.length);
                 pool = newPool;
                 bb = ByteBuffer.wrap(pool);
-                list.getTail().previous().getData().setStart(bb.position());
-                list.getTail().previous().getData().setEnd(pool.length);
+                list.getTail().previous().getData().setEnd(pool.length - 1);
                 System.out.println("Memory pool expanded to be " + pool.length + " bytes.");
-                this.insert(space, size);                
+                return(this.insert(space, size));                
             }
             else 
             {

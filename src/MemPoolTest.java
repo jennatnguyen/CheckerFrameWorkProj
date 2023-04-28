@@ -45,8 +45,11 @@ public class MemPoolTest extends TestCase {
         
         mp.insert("Nonstop".getBytes(), ((short)"Nonstop".getBytes().length));
         assertEquals(mp.get(new MemHandle(0)), "Nonstop");
-        
+        mp.printOut();
+        mp.dump();
         mp.insert("No Role Modelz".getBytes(), ((short)"No Role Modelz".getBytes().length)); 
+        mp.printOut();
+        mp.dump();
         assertEquals(mp.get(new MemHandle("Nonstop".getBytes().length + 2)), "No Role Modelz");
         
         //will have to expand to fit Love yourz 
