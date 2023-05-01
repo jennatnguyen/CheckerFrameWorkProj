@@ -21,7 +21,7 @@ public class MemPool implements MemPoolInterface{
         initSize = size;
         pool = new byte[initSize];
         // TODO Auto-generated constructor stub
-        list.add(new FreeBlock(0, initSize));
+        list.add(new FreeBlock(0, initSize - 1));
     }
 
     
@@ -207,9 +207,16 @@ public class MemPool implements MemPoolInterface{
         for (int i = 0; i < list.size(); i++)
         {
             FreeBlock fb = list.get(i);
-            System.out.print("(" + fb.getStart() + "," + (fb.getEnd() - fb.getStart()) + ")");
+            //System.out.print("(" + fb.getStart() + "," + (fb.getEnd() - fb.getStart()) + ")");
             if (i != list.size() - 1)
+            {
+                System.out.print("(" + fb.getStart() + "," + (fb.getEnd() - fb.getStart()) + ")");
                 System.out.print(" -> ");
+            }
+            else 
+            {
+                System.out.print("(" + fb.getStart() + "," + (fb.getEnd() + 1 - fb.getStart()) + ")");
+            }
         }
         System.out.println("");
     }
