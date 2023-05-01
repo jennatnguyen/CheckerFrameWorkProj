@@ -117,11 +117,14 @@ public class MemPool implements MemPoolInterface{
      */
     @Override
     public void remove(MemHandle theHandle) {
+        //delete below variable later
+        String currPool = new String(pool);
         ByteBuffer bb = ByteBuffer.wrap(pool);
         bb.position(theHandle.getStart());
         short size = bb.getShort();
         FreeBlock newFBlock = new FreeBlock(theHandle.getStart(), theHandle.getStart() + 2 + size);        
-        
+        //it might just be the 1 difference
+        //may be re-do later
         // Need to add to the beginning
         if (newFBlock.getStart() < list.get(0).getStart()) {
             list.add(0, newFBlock);
@@ -192,8 +195,7 @@ public class MemPool implements MemPoolInterface{
         byte[] arr = new byte[size];
         bb.get(arr);
         String str = new String(arr, 0, size);
-        return str;
-        
+        return str;    
     }
     
     /**
@@ -202,7 +204,14 @@ public class MemPool implements MemPoolInterface{
     @Override
     public void dump()
     {
-        System.out.println(list.toString());
+        for (int i = 0; i < list.size(); i++)
+        {
+            FreeBlock fb = list.get(i);
+            System.out.print("(" + fb.getStart() + "," + (fb.getEnd() - fb.getStart()) + ")");
+            if (i != list.size() - 1)
+                System.out.print(" -> ");
+        }
+        System.out.println("");
     }
     
     /**
