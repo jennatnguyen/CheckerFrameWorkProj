@@ -92,40 +92,6 @@ public class MemMan {
         }
     }
     
-    private void insertCombo(String art, String son)
-    {
-        boolean flag = false;
-        if (tables[0].search(art) == null)
-        {
-            int size = memPool.pool.length - 1;
-            MemHandle MH = memPool.insert(art.getBytes(), (short)(art.getBytes().length));
-            tables[0].insert(art, MH, 0);
-            if (MH.getStart() + 2 + (art.getBytes().length) >= size)
-                flag = true;
-            System.out.println("|"+art+"| is added to the "+"artist" +" database.");
-        }
-        else 
-        {
-            System.out.println("|"+art+"| duplicates a record already in " + "artist" +" database.");
-        }
-        if (tables[1].search(son) == null)
-        {
-            int size = memPool.pool.length - 1;
-            MemHandle MH = memPool.insert(son.getBytes(), (short)(son.getBytes().length));
-            tables[1].insert(son, MH, 1);
-            if (MH.getStart() + 2 + (son.getBytes().length) >= size || flag)
-            {
-                System.out.println("Memory pool expanded to be " + memPool.pool.length + " bytes.");
-            }
-            System.out.println("|"+son+"| is added to the "+"song" +" database.");
-
-        }
-        else 
-        {
-            System.out.println("|"+son+"| duplicates a record already in " + "song" +" database.");
-        }
-    }
-    
     public void print(String category) {
         if (category.equals("blocks")) {
             memPool.dump();
