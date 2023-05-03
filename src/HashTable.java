@@ -65,7 +65,6 @@ public class HashTable {
             probedPosition = quadProbe(homeSlot, collisons);
         }
         table[probedPosition] = MH;
-        ++totalItems;
     }
     
     /**
@@ -94,6 +93,7 @@ public class HashTable {
                     memPool.remove((MemHandle) MHFound);
                     hashTable[probedPosition] = Handle.TOMBSTONE;
                     System.out.println("|" + str + "| is removed from the "+tableType+" database.");
+                    totalItems--;
                     break;
                 }
                 else {
@@ -166,6 +166,7 @@ public class HashTable {
      */
     private void expandTable() {
         Handle[] newHashTable = new Handle[currHashTableLen * 2];
+        currHashTableLen *= 2;
         for (Handle memHandle : hashTable)
         {
             if (memHandle != Handle.TOMBSTONE && memHandle != null) 
@@ -175,7 +176,7 @@ public class HashTable {
             }
         }
         hashTable = newHashTable;
-        currHashTableLen *= 2;
+        
     }
     
     
