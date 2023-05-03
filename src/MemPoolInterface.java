@@ -14,6 +14,6 @@ public interface MemPoolInterface
     // Return the number of bytes actually copied into space.
     String get(MemHandle theHandle);
 
-    // Dump a printout of the freeblock list
+    // Dump a printout of the freeblock list to the standard output
     void dump();
 }
