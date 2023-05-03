@@ -118,25 +118,17 @@ public class MemPoolTest extends TestCase
         // 5,8,6,4,3,7,5
         // now we will remove the 8, 4, 7
         mp.remove(new MemHandle("Non".getBytes().length + 2));
-        mp.printOut();
-        mp.dump();
         mp.remove(new MemHandle(
                 "Non".getBytes().length + "Modelz".getBytes().length
                         + "Love".getBytes().length + 6));
-        mp.printOut();
-        mp.dump();
+
         mp.remove(new MemHandle("Non".getBytes().length
                 + "Modelz".getBytes().length + "Love".getBytes().length
                 + "A".getBytes().length + "Up".getBytes().length + 10));
-        mp.printOut();
-        mp.dump();
-        // I would recommend double checking the above actually did what it was supposed
-        // to
+
         // now if we try to insert a 4 character song, then it should go into the space
         // where "Tears" was previously
         mp.insert("Risk".getBytes(), ((short) "Risk".getBytes().length));
-        mp.printOut();
-        mp.dump();
         assertEquals(mp.get(new MemHandle("Non".getBytes().length
                 + "Modelz".getBytes().length + "Love".getBytes().length
                 + "A".getBytes().length + "Up".getBytes().length + 10)),

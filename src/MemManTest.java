@@ -33,7 +33,7 @@ public class MemManTest extends student.TestCase
         try
         {
             MemMan.main(new String[]
-            { "10", "32", "SampleInput.txt" });
+            { "10", "32", "sampleInput.txt" });
         } catch (Exception e)
         {
             thrown = e;
