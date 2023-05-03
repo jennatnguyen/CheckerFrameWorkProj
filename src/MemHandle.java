@@ -5,9 +5,10 @@
  * @author Sarthak Shrivastava (sarthaks)
  * @version 2023.04.25
  */
-public class MemHandle implements Handle{
+public class MemHandle implements Handle
+{
     private int start;
-    
+
     /**
      * Constructor
      */
@@ -15,23 +16,26 @@ public class MemHandle implements Handle{
     {
         this.start = start;
     }
-    
-    public int getStart() {
+
+    public int getStart()
+    {
         return start;
     }
-    
-    public boolean equals(Object obj) {
-        if (obj == this) {
+
+    public boolean equals(Object obj)
+    {
+        if (obj == this)
+        {
             return true;
-        }
-        else if (obj == null) {
+        } else if (obj == null)
+        {
             return false;
-        }
-        else if (obj.getClass() == this.getClass()) {
+        } else if (obj.getClass() == this.getClass())
+        {
             MemHandle other = (MemHandle) obj;
             return this.getStart() == other.getStart();
-        }
-        else {
+        } else
+        {
             return false;
         }
     }

@@ -1,5 +1,6 @@
 
-public interface MemPoolInterface {
+public interface MemPoolInterface
+{
     // Insert a record and return its position handle.
     // space contains the record to be inserted, of length size.
     MemHandle insert(byte[] space, short size);
