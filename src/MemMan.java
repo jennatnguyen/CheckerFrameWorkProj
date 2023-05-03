@@ -48,10 +48,10 @@ public class MemMan {
      */
     public void remove(String category, String str) {
         if (category.equals("artist")) {
-            tables[0].remove(str);
+            tables[0].remove(str, "artist");
         }
         else {
-            tables[1].remove(str);
+            tables[1].remove(str, "song");
         }
     }
     
@@ -88,7 +88,7 @@ public class MemMan {
         }
         else 
         {
-            System.out.println("|"+str+"| duplicates a record already in " + ((table == 0)?"artist" : "song") +" database.");
+            System.out.println("|"+str+"| duplicates a record already in the " + ((table == 0)?"artist" : "song") +" database.");
         }
     }
     

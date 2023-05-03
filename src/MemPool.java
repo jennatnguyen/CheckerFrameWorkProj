@@ -101,10 +101,11 @@ public class MemPool implements MemPoolInterface{
                 bb.put(space);
                 list.get(index).setStart(list.get(index).getStart() + size + 2);
             }
-            if (list.get(index).getEnd() == list.get(index).getStart()) // Has to be index not list.size()
+            if (list.get(index).getEnd() == list.get(index).getStart())
             {
                 list.remove(index);
             }
+                
             return new MemHandle(MH);
         }
     }

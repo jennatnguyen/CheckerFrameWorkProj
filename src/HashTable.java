@@ -49,6 +49,24 @@ public class HashTable {
         ++totalItems;
     }
     
+    /**
+     * silently inserts the string str into the table
+     * @param str the string to be inserted
+     * @param MH the memory handle to be stored in the table
+     * @param table the hash table to be inserted into
+     */
+    private void sInsert(String str, MemHandle MH, Handle[] table)
+    {
+        int homeSlot = sFold(str, currHashTableLen);
+        int collisons = 0;
+        int probedPosition = quadProbe(homeSlot, collisons);
+        while (table[probedPosition] != null || table[homeSlot] == Handle.TOMBSTONE) {
+            collisons++;
+            probedPosition = quadProbe(homeSlot, collisons);
+        }
+        table[probedPosition] = MH;
+        ++totalItems;
+    }
     
     /**
      * 
@@ -56,7 +74,7 @@ public class HashTable {
      * @param str
      * @return MemHandel
      */
-    public void remove(String str) {
+    public void remove(String str, String tableType) {
         int homeSlot = sFold(str, currHashTableLen);
         int collisions = 0;
         while (true) {
@@ -64,7 +82,7 @@ public class HashTable {
             Handle MHFound = hashTable[probedPosition];
             
             if (MHFound == null) {
-                System.out.println("|" + str + "| does not exist in the song database.");
+                System.out.println("|" + str + "| does not exist in the "+tableType+" database.");
                 break;
             }
             else if (MHFound == Handle.TOMBSTONE) {
@@ -75,7 +93,7 @@ public class HashTable {
                 if (memPoolString.contains(str)) {
                     memPool.remove((MemHandle) MHFound);
                     hashTable[probedPosition] = Handle.TOMBSTONE;
-                    System.out.println("|" + str + "| is removed from the artist database.");
+                    System.out.println("|" + str + "| is removed from the "+tableType+" database.");
                     break;
                 }
                 else {
@@ -148,7 +166,14 @@ public class HashTable {
      */
     private void expandTable() {
         Handle[] newHashTable = new Handle[currHashTableLen * 2];
-        System.arraycopy(hashTable, 0, newHashTable, 0, currHashTableLen);
+        for (Handle memHandle : hashTable)
+        {
+            if (memHandle != Handle.TOMBSTONE && memHandle != null) 
+            {
+                MemHandle thisHandle = (MemHandle) memHandle;
+                this.sInsert(memPool.get(thisHandle), thisHandle, newHashTable);
+            }
+        }
         hashTable = newHashTable;
         currHashTableLen *= 2;
     }
