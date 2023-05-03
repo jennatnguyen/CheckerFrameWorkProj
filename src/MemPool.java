@@ -65,7 +65,7 @@ public class MemPool implements MemPoolInterface{
             for (int i = 0; i < list.size(); i++)
             {
                 fb = list.get(i);
-                fbLen = fb.getEnd() - fb.getStart();
+                fbLen = fb.getEnd() - fb.getStart() + 1;//starts at the first usable, and ends at last usable spot, so size is difference + 1
                 if (fbLen >= (size+2) && fbLen < lowLen)
                 {
                     index = i;
@@ -80,7 +80,7 @@ public class MemPool implements MemPoolInterface{
                 //problem for later me to deal with
                 if (list.getTail().previous().getData().getEnd() < pool.length - 1)
                 {
-                    list.add(new FreeBlock(pool.length, pool.length + initSize));
+                    list.add(new FreeBlock(pool.length, pool.length + initSize - 1));
                 }
                 else
                 {
@@ -101,7 +101,7 @@ public class MemPool implements MemPoolInterface{
                 bb.put(space);
                 list.get(index).setStart(list.get(index).getStart() + size + 2);
             }
-            if (list.get(index).getEnd() == list.get(index).getStart())
+            if (list.get(index).getEnd() == list.get(index).getStart() + 1) //if they're equal, that one spot can be used
             {
                 list.remove(index);
             }
@@ -123,7 +123,7 @@ public class MemPool implements MemPoolInterface{
         ByteBuffer bb = ByteBuffer.wrap(pool);
         bb.position(theHandle.getStart());
         short size = bb.getShort();
-        FreeBlock newFBlock = new FreeBlock(theHandle.getStart(), theHandle.getStart() + 2 + size);        
+        FreeBlock newFBlock = new FreeBlock(theHandle.getStart(), theHandle.getStart() + 1 + size); //this has to be one      
         //it might just be the 1 difference
         //may be re-do later
         // Need to add to the beginning
@@ -190,6 +190,7 @@ public class MemPool implements MemPoolInterface{
      */
     @Override
     public String get(MemHandle theHandle) {
+        String testString = new String(pool);
         ByteBuffer bb = ByteBuffer.wrap(pool);
         bb.position(theHandle.getStart());
         short size = bb.getShort();
@@ -208,16 +209,16 @@ public class MemPool implements MemPoolInterface{
         for (int i = 0; i < list.size(); i++)
         {
             FreeBlock fb = list.get(i);
-            //System.out.print("(" + fb.getStart() + "," + (fb.getEnd() - fb.getStart()) + ")");
+            System.out.print("(" + fb.getStart() + "," + (fb.getEnd() - fb.getStart() + 1) + ")");
             if (i != list.size() - 1)
             {
-                System.out.print("(" + fb.getStart() + "," + (fb.getEnd() - fb.getStart()) + ")");
+                //System.out.print("(" + fb.getStart() + "," + (fb.getEnd() - fb.getStart() + 1) + ")");
                 System.out.print(" -> ");
             }
-            else 
-            {
-                System.out.print("(" + fb.getStart() + "," + (fb.getEnd() + 1 - fb.getStart()) + ")");
-            }
+//            else 
+//            {
+//                System.out.print("(" + fb.getStart() + "," + (fb.getEnd() + 1 - fb.getStart()) + ")");
+//            }
         }
         System.out.println("");
     }
