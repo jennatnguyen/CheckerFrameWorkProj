@@ -103,7 +103,7 @@ public class MemManTest extends student.TestCase {
                 + "Memory pool expanded to be 320 bytes.\r\n"
                 + "|Mongo Santamaria| is added to the artist database.\r\n"
                 + "|Watermelon Man| is added to the song database.\r\n"
-                + "(44,11) -> (121,4) -> (319,1)", output);
+                + "(44,11) -> (121,4) -> (319,1)\r\n", output);
     }
     
     

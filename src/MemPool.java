@@ -101,7 +101,7 @@ public class MemPool implements MemPoolInterface{
                 bb.put(space);
                 list.get(index).setStart(list.get(index).getStart() + size + 2);
             }
-            if (list.get(index).getEnd() == list.get(index).getStart() + 1) //if they're equal, that one spot can be used
+            if (list.get(index).getEnd() == list.get(index).getStart() - 1) //if they're equal, that one spot can be used
             {
                 list.remove(index);
             }
