@@ -122,7 +122,7 @@ public class MemManTest extends student.TestCase
 //    {
 //        Exception thrown = null;
 //        try {
-//            MemMan.main(new String[] { "10", "32", "edge.txt" });
+//            MemMan.main(new String[] { "10", "24", "edge.txt" });
 //        } 
 //        catch (Exception e) {
 //            thrown = e;
@@ -130,14 +130,6 @@ public class MemManTest extends student.TestCase
 //        }
 //        assertTrue(thrown == null);
 //        String output = systemOut().getHistory();
-//        assertEquals("|Blind Lemon Jefferson| is added to the artist database.\r\n"
-//                + "Memory pool expanded to be 64 bytes.\r\n"
-//                + "|Long Lonesome Blues| is added to the song database.\r\n"
-//                + "|Ma Rainey| is added to the artist database.\r\n"
-//                + "Memory pool expanded to be 96 bytes.\r\n"
-//                + "|Ma Rainey's Black Bottom| is added to the song database.\r\n"
-//                + "Memory pool expanded to be 128 bytes.\r\n"
-//                + "|Charley Patton| is added to the artist database.\r\n"
-//                + "|Mississippi Boweavil Blues| is added to the song database.", output);
+//
 //    }
 }

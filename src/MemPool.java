@@ -40,11 +40,16 @@ public class MemPool implements MemPoolInterface
         int MH = 0;
         if (list.isEmpty())
         {
-            bb.position(0);
+            //we need to expand the pool and start writing at the end of it
+            bb = expandSize();
+            bb.position(pool.length - initSize); //takes us to the end of the pool
+            //bb.position(0);
             bb.putShort(size);
             bb.put(space);
-            list.add(new FreeBlock(size + 2, pool.length));
-            return new MemHandle(0);
+            list.add(new FreeBlock((pool.length - initSize) + size + 2, pool.length - 1));
+            //list.add(new FreeBlock(size + 2, pool.length));
+            //return new MemHandle(0);
+            return new MemHandle(pool.length - initSize);
         } else
         {
             /*
@@ -85,10 +90,8 @@ public class MemPool implements MemPoolInterface
                     list.getTail().previous().getData()
                             .setEnd(pool.length + initSize - 1);
                 }
-                byte[] newPool = new byte[pool.length + initSize];
-                System.arraycopy(pool, 0, newPool, 0, pool.length);
-                pool = newPool;
-                bb = ByteBuffer.wrap(pool);
+                bb = expandSize();
+                //use above to expand the size of the pool
                 // System.out.println("Memory pool expanded to be " + pool.length + " bytes.");
                 return (this.insert(space, size));
             } else
@@ -107,6 +110,18 @@ public class MemPool implements MemPoolInterface
 
             return new MemHandle(MH);
         }
+    }
+
+    /**
+     * @return
+     */
+    private ByteBuffer expandSize() {
+        ByteBuffer bb;
+        byte[] newPool = new byte[pool.length + initSize];
+        System.arraycopy(pool, 0, newPool, 0, pool.length);
+        pool = newPool;
+        bb = ByteBuffer.wrap(pool);
+        return bb;
     }
 
     /**
