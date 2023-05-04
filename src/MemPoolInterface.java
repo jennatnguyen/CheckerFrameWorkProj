@@ -1,5 +1,6 @@
 
-public interface MemPoolInterface {
+public interface MemPoolInterface
+{
     // Insert a record and return its position handle.
     // space contains the record to be inserted, of length size.
     MemHandle insert(byte[] space, short size);
@@ -13,6 +14,6 @@ public interface MemPoolInterface {
     // Return the number of bytes actually copied into space.
     String get(MemHandle theHandle);
 
-    // Dump a printout of the freeblock list
+    // Dump a printout of the freeblock list to the standard output
     void dump();
 }

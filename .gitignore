@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 *.txt
 /bin/
@@ -9,4 +10,12 @@
 .DS_Store
 Thumbs.db
 >>>>>>> branch 'master' of https://web-cat.cs.vt.edu/Web-CAT/WebObjects/Web-CAT.woa/git/StudentProject/3e604845-8cb5-441f-8410-579ce57abc72
+/bin/
+=======
+~*
+._*
+.TemporaryItems
+.DS_Store
+Thumbs.db
+>>>>>>> branch 'master' of https://web-cat.cs.vt.edu/Web-CAT/WebObjects/Web-CAT.woa/git/StudentProject/f9fde874-57de-4984-af66-a4202c511b50
 /bin/

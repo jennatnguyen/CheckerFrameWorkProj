@@ -5,7 +5,8 @@
  * @author Sarthak Shrivastava (sarthaks)
  * @version 2023.04.25
  */
-public interface Handle {
+public interface Handle
+{
     /**
      * Creates one flyNode which all nodes can set their pointers to
      */

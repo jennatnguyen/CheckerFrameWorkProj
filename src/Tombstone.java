@@ -5,7 +5,8 @@
  * @author Sarthak Shrivastava (sarthaks)
  * @version 2023.04.25
  */
-public class Tombstone implements Handle{
+public class Tombstone implements Handle
+{
     /**
      * Constructor
      */
