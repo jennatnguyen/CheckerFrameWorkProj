@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  * 
  *
@@ -26,8 +30,9 @@ public class MemManTest extends student.TestCase
 
     /**
      * Test case for test the sample inputs we were provides
+     * @throws IOException 
      */
-    public void testMainWithParameters()
+    public void testMainWithParameters() throws IOException
     {
         Exception thrown = null;
         try
@@ -41,6 +46,12 @@ public class MemManTest extends student.TestCase
         }
         assertTrue(thrown == null);
         String output = systemOut().getHistory();
+        //below is for testing purposes
+        File myFile = new File("output.txt");
+        FileWriter fileW = new FileWriter("output.txt");
+        fileW.write(output);
+        fileW.close();
+        //above is for testing purposes
         assertEquals(
                 "|When Summer's Through| does not exist in the song database.\r\n"
                         + "(0,32)\r\n" + "total songs: 0\r\n"

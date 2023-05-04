@@ -43,8 +43,7 @@ public class MemPool implements MemPoolInterface
             bb.position(0);
             bb.putShort(size);
             bb.put(space);
-            list.remove(0);
-            list.add(new FreeBlock(size, pool.length));
+            list.add(new FreeBlock(size + 2, pool.length));
             return new MemHandle(0);
         } else
         {
