@@ -1,0 +1,22 @@
+remove song When Summer's Through
+print blocks
+print songs
+print artists
+insert Playboi Carti<SEP>Bane
+insert Drake<SEP>Going bad
+insert West<SEP>Euro$tep
+print blocks
+remove artist Drake
+print blocks
+remove song Euro$tep
+print blocks
+remove song Going bad
+print blocks
+remove artist West
+print blocks
+remove artist Playboi Carti
+print blocks
+remove song Bane
+print blocks
+print songs
+print artists
