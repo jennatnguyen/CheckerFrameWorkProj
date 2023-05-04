@@ -39,7 +39,7 @@ public class MemMan
         tables = new HashTable[2];
         // tables[0]: artists
         tables[0] = new HashTable(hashSize, memPool);
-        // tables[0]: artists
+        // tables[1]: song
         tables[1] = new HashTable(hashSize, memPool);
     }
 

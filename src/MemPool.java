@@ -141,8 +141,13 @@ public class MemPool implements MemPoolInterface
                 theHandle.getStart() + 1 + size); // this has to be one
         // it might just be the 1 difference
         // may be re-do later
+        
+        // if list is empty
+        if (list.isEmpty()) {
+            list.add(newFBlock);
+        }
         // Need to add to the beginning
-        if (newFBlock.getStart() < list.get(0).getStart())
+        else if (newFBlock.getStart() < list.get(0).getStart())
         {
             list.add(0, newFBlock);
             merge(0);
@@ -188,13 +193,12 @@ public class MemPool implements MemPoolInterface
     {
         if (index == 0)
         {
-            if (list.get(0).getEnd() == list.get(1).getStart())
+            if (list.get(0).getEnd() == list.get(1).getStart() + 1)
             {
                 list.get(0).setEnd(list.get(1).getEnd());
                 list.remove(1);
             }
-        } else if (list.get(index).getStart() == list.get(index - 1)
-                .getEnd())
+        } else if (list.get(index).getStart() == list.get(index - 1).getEnd() + 1)
         {
             list.get(index - 1).setEnd(list.get(index).getEnd());
             list.remove(index);

@@ -46,7 +46,7 @@ public class HashTable
         int collisons = 0;
         int probedPosition = quadProbe(homeSlot, collisons);
         while (hashTable[probedPosition] != null
-                || hashTable[homeSlot] == Handle.TOMBSTONE)
+                || hashTable[probedPosition] == Handle.TOMBSTONE)
         {
             collisons++;
             probedPosition = quadProbe(homeSlot, collisons);

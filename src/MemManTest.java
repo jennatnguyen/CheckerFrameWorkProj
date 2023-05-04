@@ -118,6 +118,7 @@ public class MemManTest extends student.TestCase
                 output);
     }
 
+
 //    public void testEdge()
 //    {
 //        Exception thrown = null;
@@ -132,4 +133,46 @@ public class MemManTest extends student.TestCase
 //        String output = systemOut().getHistory();
 //
 //    }
+    public void testInsertFullRemoveFull()
+    {
+        Exception thrown = null;
+        try
+        {
+            MemMan.main(new String[]
+            { "10", "64", "RandomTest1.txt" });
+        } catch (Exception e)
+        {
+            thrown = e;
+            System.out.println(e);
+        }
+        assertTrue(thrown == null);
+        String output = systemOut().getHistory();
+        assertEquals(
+                "|When Summer's Through| does not exist in the song database.\r\n"
+                + "(0,64)\r\n"
+                + "total songs: 0\r\n"
+                + "total artists: 0\r\n"
+                + "|Playboi Carti| is added to the artist database.\r\n"
+                + "|Bane| is added to the song database.\r\n"
+                + "|Drake| is added to the artist database.\r\n"
+                + "|Going bad| is added to the song database.\r\n"
+                + "|West| is added to the artist database.\r\n"
+                + "|Euro$tep| is added to the song database.\r\n"
+                + "(55,9)\r\n"
+                + "|Drake| is removed from the artist database.\r\n"
+                + "(21,7) -> (55,9)\r\n"
+                + "|Euro$tep| is removed from the song database.\r\n"
+                + "(21,7) -> (45,10) -> (55,9)\r\n"
+                + "|Going bad| is removed from the song database.\r\n"
+                + "(21,18) -> (45,10) -> (55,9)\r\n"
+                + "|West| is removed from the artist database.\r\n"
+                + "(21,43)\r\n"
+                + "|Playboi Carti| is removed from the artist database.\r\n"
+                + "(0,15) -> (21,43)\r\n"
+                + "|Bane| is removed from the song database.\r\n"
+                + "(0,64)\r\n"
+                + "total songs: 0\r\n"
+                + "total artists: 0\r\n",
+                output);
+    }
 }
