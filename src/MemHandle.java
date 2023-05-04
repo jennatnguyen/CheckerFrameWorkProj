@@ -21,6 +21,10 @@ public class MemHandle implements Handle
     {
         return start;
     }
+    
+    public String toString() {
+        return "(" + start + ")";
+    }
 
     public boolean equals(Object obj)
     {

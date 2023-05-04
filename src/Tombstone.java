@@ -14,5 +14,9 @@ public class Tombstone implements Handle
     {
         // TODO Auto-generated constructor stub
     }
+    
+    public String toString() {
+        return "TOMBSTONE";
+    }
 
 }
