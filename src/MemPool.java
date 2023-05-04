@@ -126,8 +126,13 @@ public class MemPool implements MemPoolInterface
                 theHandle.getStart() + 1 + size); // this has to be one
         // it might just be the 1 difference
         // may be re-do later
+        
+        // if list is empty
+        if (list.isEmpty()) {
+            list.add(newFBlock);
+        }
         // Need to add to the beginning
-        if (newFBlock.getStart() < list.get(0).getStart())
+        else if (newFBlock.getStart() < list.get(0).getStart())
         {
             list.add(0, newFBlock);
             merge(0);
