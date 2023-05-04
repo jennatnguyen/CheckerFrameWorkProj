@@ -147,13 +147,13 @@ public class MemPool implements MemPoolInterface
             list.add(newFBlock);
         }
         // Need to add to the beginning
-        else if (newFBlock.getStart() < list.get(0).getStart())
+        else if (newFBlock.getEnd() <= list.get(0).getStart())
         {
             list.add(0, newFBlock);
             merge(0);
         }
         // Need to add to the end
-        else if (newFBlock.getStart() > list.get(list.size() - 1).getEnd())
+        else if (newFBlock.getStart() >= list.getTail().previous().getData().getEnd())
         {
             list.add(newFBlock);
             merge(list.size() - 1);
@@ -167,10 +167,12 @@ public class MemPool implements MemPoolInterface
                 curr = list.get(i);
                 prev = list.get(i - 1);
                 if (newFBlock.getStart() >= prev.getEnd()
-                        && newFBlock.getStart() < curr.getStart())
+                        && newFBlock.getEnd() <= curr.getStart())
                 {
                     list.add(i, newFBlock);
-                    merge(i);
+                    merge
+                    
+                    (i);
                     break;
                 }
             }
@@ -193,12 +195,12 @@ public class MemPool implements MemPoolInterface
     {
         if (index == 0)
         {
-            if (list.get(0).getEnd() == list.get(1).getStart() + 1)
+            if (list.get(0).getEnd() >= list.get(1).getStart() - 1)
             {
                 list.get(0).setEnd(list.get(1).getEnd());
                 list.remove(1);
             }
-        } else if (list.get(index).getStart() == list.get(index - 1).getEnd() + 1)
+        } else if (list.get(index).getStart() <= list.get(index - 1).getEnd() + 1)
         {
             list.get(index - 1).setEnd(list.get(index).getEnd());
             list.remove(index);

@@ -119,20 +119,20 @@ public class MemManTest extends student.TestCase
     }
 
 
-//    public void testEdge()
-//    {
-//        Exception thrown = null;
-//        try {
-//            MemMan.main(new String[] { "10", "24", "edge.txt" });
-//        } 
-//        catch (Exception e) {
-//            thrown = e;
-//            System.out.println(e);
-//        }
-//        assertTrue(thrown == null);
-//        String output = systemOut().getHistory();
-//
-//    }
+    public void testEdge()
+    {
+        Exception thrown = null;
+        try {
+            MemMan.main(new String[] { "10", "24", "edge.txt" });
+        } 
+        catch (Exception e) {
+            thrown = e;
+            System.out.println(e);
+        }
+        assertTrue(thrown == null);
+        String output = systemOut().getHistory();
+
+    }
     public void testInsertFullRemoveFull()
     {
         Exception thrown = null;

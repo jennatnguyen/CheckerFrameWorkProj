@@ -1,0 +1,12 @@
+insert Blind Lemon Jefferson<SEP>Long Lonesome Blues
+insert Ma Rainey<SEP>Ma Rainey's Black Bottom
+insert Charley Patton<SEP>Mississippi Boweavil Blues
+insert Sleepy John Estes<SEP>Street Car Blues
+insert Bukka White<SEP>Fixin' To Die Blues
+print blocks
+insert Drake<SEP>Nonstop
+insert J Cole<SEP>Love yourz
+insert Lil Wayne<SEP>Uproar
+insert Lil Durk<SEP>Three Headed Goat
+insert 21 Savage<SEP>No Opp Left Behind
+insert Lil Uzi Vert<SEP>The Way Life Goes
