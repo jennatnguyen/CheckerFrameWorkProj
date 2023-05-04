@@ -1,12 +1,104 @@
 insert Blind Lemon Jefferson<SEP>Long Lonesome Blues
+print blocks
+print songs
+print artists
 insert Ma Rainey<SEP>Ma Rainey's Black Bottom
+print blocks
+print songs
+print artists
 insert Charley Patton<SEP>Mississippi Boweavil Blues
+print blocks
+print songs
+print artists
 insert Sleepy John Estes<SEP>Street Car Blues
+print blocks
+print songs
+print artists
 insert Bukka White<SEP>Fixin' To Die Blues
 print blocks
+print songs
+print artists
 insert Drake<SEP>Nonstop
+print blocks
+print songs
+print artists
 insert J Cole<SEP>Love yourz
+print blocks
+print songs
+print artists
 insert Lil Wayne<SEP>Uproar
+print blocks
+print songs
+print artists
 insert Lil Durk<SEP>Three Headed Goat
+print blocks
+print songs
+print artists
 insert 21 Savage<SEP>No Opp Left Behind
+print blocks
+print songs
+print artists
 insert Lil Uzi Vert<SEP>The Way Life Goes
+print blocks
+print songs
+print artists
+remove artist Lil Uzi Vert
+print blocks
+print songs
+print artists
+remove song The Way Life Goes
+print blocks
+print songs
+print artists
+remove song No Opp Left Behind
+print blocks
+print songs
+print artists
+remove song Long Lonesome Blues
+print blocks
+print songs
+print artists
+remove artist Blind Lemon Jefferson
+print blocks
+print songs
+print artists
+remove artist Ma Rainey
+print blocks
+print songs
+print artists
+remove song Three Headed Goat
+print blocks
+print songs
+print artists
+remove artist 21 Savage
+print blocks
+print songs
+print artists
+remove artist Drake
+print blocks
+print songs
+print artists
+remove artist J Cole
+print blocks
+print songs
+print artists
+remove song Nonstop
+print blocks
+print songs
+print artists
+remove artist Charley Patton
+print blocks
+print songs
+print artists
+remove song Mississippi Boweavil Blues
+print blocks
+print songs
+print artists
+remove song Fixin' To Die Blues
+print blocks
+print songs
+print artists
+remove artist Bukka White
+print blocks
+print songs
+print artists

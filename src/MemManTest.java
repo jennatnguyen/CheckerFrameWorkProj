@@ -119,11 +119,11 @@ public class MemManTest extends student.TestCase
     }
 
 
-    public void testEdge()
+    public void testEdge() throws IOException
     {
         Exception thrown = null;
         try {
-            MemMan.main(new String[] { "10", "24", "edge.txt" });
+            MemMan.main(new String[] { "10", "32", "edge2.txt" });
         } 
         catch (Exception e) {
             thrown = e;
@@ -131,6 +131,64 @@ public class MemManTest extends student.TestCase
         }
         assertTrue(thrown == null);
         String output = systemOut().getHistory();
+        //below is for testing purposes
+        File myFile = new File("output.txt");
+        FileWriter fileW = new FileWriter("output.txt");
+        fileW.write(output);
+        fileW.close();
+        //above is for testing purposes
+//        assertEquals("|Blind Lemon Jefferson| is added to the artist database.\r\n"
+//            + "Memory pool expanded to be 64 bytes.\r\n"
+//            + "|Long Lonesome Blues| is added to the song database.\r\n"
+//            + "|Ma Rainey| is added to the artist database.\r\n"
+//            + "Memory pool expanded to be 96 bytes.\r\n"
+//            + "|Ma Rainey's Black Bottom| is added to the song database.\r\n"
+//            + "Memory pool expanded to be 128 bytes.\r\n"
+//            + "|Charley Patton| is added to the artist database.\r\n"
+//            + "|Mississippi Boweavil Blues| is added to the song database.\r\n"
+//            + "Memory pool expanded to be 160 bytes.\r\n"
+//            + "|Sleepy John Estes| is added to the artist database.\r\n"
+//            + "Memory pool expanded to be 192 bytes.\r\n"
+//            + "|Street Car Blues| is added to the song database.\r\n"
+//            + "|Bukka White| is added to the artist database.\r\n"
+//            + "Memory pool expanded to be 224 bytes.\r\n"
+//            + "|Fixin' To Die Blues| is added to the song database.\r\n"
+//            + "(196,28)\r\n"
+//            + "Artist hash table size doubled.\r\n"
+//            + "|Drake| is added to the artist database.\r\n"
+//            + "Song hash table size doubled.\r\n"
+//            + "|Nonstop| is added to the song database.\r\n"
+//            + "|J Cole| is added to the artist database.\r\n"
+//            + "Memory pool expanded to be 256 bytes.\r\n"
+//            + "|Love yourz| is added to the song database.\r\n"
+//            + "|Lil Wayne| is added to the artist database.\r\n"
+//            + "|Uproar| is added to the song database.\r\n"
+//            + "Memory pool expanded to be 288 bytes.\r\n"
+//            + "|Lil Durk| is added to the artist database.\r\n"
+//            + "|Three Headed Goat| is added to the song database.\r\n"
+//            + "Memory pool expanded to be 320 bytes.\r\n"
+//            + "|21 Savage| is added to the artist database.\r\n"
+//            + "|No Opp Left Behind| is added to the song database.\r\n"
+//            + "Artist hash table size doubled.\r\n"
+//            + "Memory pool expanded to be 352 bytes.\r\n"
+//            + "|Lil Uzi Vert| is added to the artist database.\r\n"
+//            + "Song hash table size doubled.\r\n"
+//            + "|The Way Life Goes| is added to the song database.\r\n"
+//            + "|Lil Uzi Vert| is removed from the artist database.\r\n"
+//            + "|The Way Life Goes| is removed from the song database.\r\n"
+//            + "|No Opp Left Behind| is removed from the song database.\r\n"
+//            + "|Long Lonesome Blues| is removed from the song database.\r\n"
+//            + "|Blind Lemon Jefferson| is removed from the artist database.\r\n"
+//            + "|Ma Rainey| is removed from the artist database.\r\n"
+//            + "|Three Headed Goat| is removed from the song database.\r\n"
+//            + "|21 Savage| is removed from the artist database.\r\n"
+//            + "|Drake| is removed from the artist database.\r\n"
+//            + "|J Cole| is removed from the artist database.\r\n"
+//            + "|Nonstop| is removed from the song database.\r\n"
+//            + "|Charley Patton| is removed from the artist database.\r\n"
+//            + "|Mississippi Boweavil Blues| is removed from the song database.\r\n"
+//            + "|Fixin' To Die Blues| is removed from the song database.\r\n"
+//            + "|Bukka White| is removed from the artist database.\r\n", output);
 
     }
     public void testInsertFullRemoveFull()

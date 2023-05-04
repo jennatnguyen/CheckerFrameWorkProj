@@ -1,0 +1,52 @@
+|Blind Lemon Jefferson| is added to the artist database.
+Memory pool expanded to be 64 bytes.
+|Long Lonesome Blues| is added to the song database.
+|Ma Rainey| is added to the artist database.
+Memory pool expanded to be 96 bytes.
+|Ma Rainey's Black Bottom| is added to the song database.
+Memory pool expanded to be 128 bytes.
+|Charley Patton| is added to the artist database.
+|Mississippi Boweavil Blues| is added to the song database.
+Memory pool expanded to be 160 bytes.
+|Sleepy John Estes| is added to the artist database.
+Memory pool expanded to be 192 bytes.
+|Street Car Blues| is added to the song database.
+|Bukka White| is added to the artist database.
+Memory pool expanded to be 224 bytes.
+|Fixin' To Die Blues| is added to the song database.
+(196,28)
+Artist hash table size doubled.
+|Drake| is added to the artist database.
+Song hash table size doubled.
+|Nonstop| is added to the song database.
+|J Cole| is added to the artist database.
+Memory pool expanded to be 256 bytes.
+|Love yourz| is added to the song database.
+|Lil Wayne| is added to the artist database.
+|Uproar| is added to the song database.
+Memory pool expanded to be 288 bytes.
+|Lil Durk| is added to the artist database.
+|Three Headed Goat| is added to the song database.
+Memory pool expanded to be 320 bytes.
+|21 Savage| is added to the artist database.
+|No Opp Left Behind| is added to the song database.
+Artist hash table size doubled.
+Memory pool expanded to be 352 bytes.
+|Lil Uzi Vert| is added to the artist database.
+Song hash table size doubled.
+|The Way Life Goes| is added to the song database.
+|Lil Uzi Vert| is removed from the artist database.
+|The Way Life Goes| is removed from the song database.
+|No Opp Left Behind| is removed from the song database.
+|Long Lonesome Blues| is removed from the song database.
+|Blind Lemon Jefferson| is removed from the artist database.
+|Ma Rainey| is removed from the artist database.
+|Three Headed Goat| is removed from the song database.
+|21 Savage| is removed from the artist database.
+|Drake| is removed from the artist database.
+|J Cole| is removed from the artist database.
+|Nonstop| is removed from the song database.
+|Charley Patton| is removed from the artist database.
+|Mississippi Boweavil Blues| is removed from the song database.
+|Fixin' To Die Blues| is removed from the song database.
+|Bukka White| is removed from the artist database.

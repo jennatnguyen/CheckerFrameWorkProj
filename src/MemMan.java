@@ -84,7 +84,7 @@ public class MemMan
             MemHandle MH = memPool.insert(str.getBytes(),
                     (short) (str.getBytes().length));
             tables[table].insert(str, MH, table);
-            if (MH.getStart() + 2 + (str.getBytes().length) >= size)
+            if (MH.getStart() + 2 + (str.getBytes().length) > size)
             {
                 System.out.println("Memory pool expanded to be "
                         + memPool.pool.length + " bytes.");
