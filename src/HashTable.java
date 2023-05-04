@@ -37,22 +37,45 @@ public class HashTable
             if (table == 0)
             {
                 System.out.println("Artist hash table size doubled.");
+                //System.out.println("Artist hash table size doubled. [" + hashTable.length + "]");
             } else
             {
                 System.out.println("Song hash table size doubled.");
+                //System.out.println("Song hash table size doubled.[" + hashTable.length + "]");
             }
         }
         int homeSlot = sFold(str, currHashTableLen);
         int collisons = 0;
         int probedPosition = quadProbe(homeSlot, collisons);
         while (hashTable[probedPosition] != null
-                || hashTable[probedPosition] == Handle.TOMBSTONE)
+                && hashTable[probedPosition] != Handle.TOMBSTONE)
         {
             collisons++;
             probedPosition = quadProbe(homeSlot, collisons);
         }
         hashTable[probedPosition] = MH;
         ++totalItems;
+//        if (table == 0) {
+//            System.out.print("  ARTIST Hashtable: ");
+//        }
+//        else {
+//            System.out.print("  SONG Hashtable: ");
+//        }
+//        printHashTable();
+    }
+    
+    private void printHashTable() {
+        StringBuilder sb = new StringBuilder("[");
+        for (Handle hand : hashTable) {
+            if (hand != null) {
+                sb.append(hand.toString() + ", ");
+            }
+            else {
+                sb.append("null, ");
+            }
+        }
+        sb.append("]\n");
+        System.out.print(sb.toString());
     }
 
     /**
@@ -68,7 +91,7 @@ public class HashTable
         int collisons = 0;
         int probedPosition = quadProbe(homeSlot, collisons);
         while (table[probedPosition] != null
-                || table[homeSlot] == Handle.TOMBSTONE)
+                && table[probedPosition] != Handle.TOMBSTONE)
         {
             collisons++;
             probedPosition = quadProbe(homeSlot, collisons);

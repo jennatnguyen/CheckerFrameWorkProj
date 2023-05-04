@@ -11,4 +11,6 @@ public interface Handle
      * Creates one flyNode which all nodes can set their pointers to
      */
     public static final Tombstone TOMBSTONE = new Tombstone();
+    
+    public String toString();
 }

@@ -1,0 +1,9 @@
+print blocks
+print songs
+print artists
+insert Playboi Carti<SEP>Bane
+insert Drake<SEP>Going bad
+insert West<SEP>Euro$tep
+print blocks
+remove artist Drake
+print blocks
