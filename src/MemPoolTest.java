@@ -1,12 +1,11 @@
 import student.TestCase;
 
 /**
+ * Test class to test the methods in the memory pool
  * 
- */
-
-/**
- * @author sarth
- *
+ * @author Shrey Patel (shreyp2305)
+ * @author Sarthak Shrivastava (sarthaks)
+ * @version 2023.05.04
  */
 public class MemPoolTest extends TestCase
 {
