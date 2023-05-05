@@ -236,6 +236,9 @@ public class MemPool implements MemPoolInterface
     @Override
     public void dump()
     {
+        if (list.isEmpty()) {
+            System.out.print("(" + pool.length + ", 0)");
+        }
         for (int i = 0; i < list.size(); i++)
         {
             FreeBlock fb = list.get(i);

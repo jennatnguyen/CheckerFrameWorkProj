@@ -8,3 +8,4 @@
 |D| is added to the song database.
 |E| is added to the artist database.
 |E| is added to the song database.
+

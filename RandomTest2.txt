@@ -4,6 +4,17 @@ print artists
 insert Playboi Carti<SEP>Bane
 insert Drake<SEP>Going bad
 insert West<SEP>Euro$tep
+insert Destroy Lonely<SEP>NOSTYLIST
+insert Eminem<SEP>Till I Collapse
+insert Lil Wayne<SEP>Uproar
+insert Dreamville<SEP>Down bad
+insert JID<SEP>Stick
+insert Key Glock<SEP>Russian Cream
+insert Cash!*<SEP>1mmortal
+insert Future<SEP>Future
+insert Baby Keem<SEP>naked freestyle
+insert J. Cole<SEP>MIDDLE CHILD
+insert shrey<SEP>twelveWr
 print blocks
 remove artist Drake
 print blocks
