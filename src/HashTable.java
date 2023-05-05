@@ -42,13 +42,13 @@ public class HashTable {
             expandTable();
             if (table == 0)
             {
-                System.out.println("Artist hash table size doubled");
+                System.out.println("Artist hash table size doubled.");
                 // System.out.println("Artist hash table size doubled. [" +
                 // hashTable.length + "]");
             }
             else
             {
-                System.out.println("Song hash table size doubled");
+                System.out.println("Song hash table size doubled.");
                 // System.out.println("Song hash table size doubled.[" +
                 // hashTable.length + "]");
             }
@@ -136,7 +136,7 @@ public class HashTable {
             if (MHFound == null)
             {
                 System.out.println("|" + str + "| does not exist in the "
-                        + tableType + " database");
+                        + tableType + " database.");
                 break;
             }
             else if (MHFound == Handle.TOMBSTONE)
@@ -151,7 +151,7 @@ public class HashTable {
                     memPool.remove((MemHandle) MHFound);
                     hashTable[probedPosition] = Handle.TOMBSTONE;
                     System.out.println("|" + str + "| is removed from the "
-                            + tableType + " database");
+                            + tableType + " database.");
                     totalItems--;
                     break;
                 }

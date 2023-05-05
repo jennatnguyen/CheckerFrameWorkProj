@@ -97,20 +97,11 @@ public class MemMan {
             MH = memPool.insert(str.getBytes(), (short) str.getBytes().length);
             System.out.println("|" + str + "| is added to the "
                     + ((table == 0) ? "artist" : "song") + " database.");
+//            int spot = tables[table].findSpot(str, table);
+//            MemHandle MH = memPool.insert(str.getBytes(),
+//                    (short) (str.getBytes().length));
+//            tables[table].fastInsert(spot, MH);
         } else
-            int size = memPool.getPool().length;
-            MemHandle MH = memPool.insert(str.getBytes(),
-                    (short) (str.getBytes().length));
-            tables[table].insert(str, MH, table);
-            if (MH.getStart() + 2 + (str.getBytes().length) > size)
-            {
-                System.out.println("Memory pool expanded to be "
-                        + memPool.getPool().length + " bytes.");
-            }
-            System.out.println("|" + str + "| is added to the "
-                    + ((table == 0) ? "artist" : "song") + " database.");
-        }
-        else
         {
             System.out.println("|" + str
                     + "| duplicates a record already in the "
