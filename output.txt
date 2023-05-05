@@ -1,11 +1,64 @@
-|AA| is added to the artist database.
-|A| is added to the song database.
-|BB| is added to the artist database.
-|B| is added to the song database.
-|C| is added to the artist database.
-|C| is added to the song database.
-|D| is added to the artist database.
-|D| is added to the song database.
-|E| is added to the artist database.
-|E| is added to the song database.
-
+|Bruce Rowland| is added to the artist database.
+|Mountain Theme| is added to the song database.
+Memory pool expanded to be 64 bytes.
+|Thomas Dolby| is added to the artist database.
+Memory pool expanded to be 96 bytes.
+|She Blinded Me With Science| is added to the song database.
+|Cheo Feliciano| is added to the artist database.
+Memory pool expanded to be 128 bytes.
+|Juguete| is added to the song database.
+|Johnny Winter| is added to the artist database.
+Memory pool expanded to be 160 bytes.
+|Be Careful With A Fool| is added to the song database.
+|Kings Of Leon| is added to the artist database.
+Memory pool expanded to be 192 bytes.
+|Wicker Chair| is added to the song database.
+Artist hash table size doubled.
+|Happy Mondays| is added to the artist database.
+Song hash table size doubled.
+Memory pool expanded to be 224 bytes.
+|Wrote For Luck (12 - Remastered version)| is added to the song database.
+Memory pool expanded to be 256 bytes.
+|Rita Chiarelli| is added to the artist database.
+|Doggin' Around| is added to the song database.
+Memory pool expanded to be 288 bytes.
+|Tim Wilson| is added to the artist database.
+Memory pool expanded to be 352 bytes.
+|I Think My Wife Is Running Around On Me (Taco Hell)| is added to the song database.
+|Ennio Morricone| is added to the artist database.
+Memory pool expanded to be 384 bytes.
+|Sporco Ma Distinto| is added to the song database.
+|Tiny Bradshaw| is added to the artist database.
+Memory pool expanded to be 416 bytes.
+|Well Oh Well| is added to the song database.
+|Happy Mondays| 2
+|Bruce Rowland| 6
+|Cheo Feliciano| 7
+|Thomas Dolby| 8
+|Ennio Morricone| 9
+|Tim Wilson| 10
+|Rita Chiarelli| 11
+|Johnny Winter| 15
+|Kings Of Leon| 16
+|Tiny Bradshaw| 19
+total artists: 10
+|Bruce Rowland| is removed from the artist database.
+(0,15) -> (387,29)
+|Thomas Dolby| is removed from the artist database.
+(0,15) -> (31,14) -> (387,29)
+|Mountain Theme| is removed from the song database.
+(0,45) -> (387,29)
+|3 Doors Down| is added to the artist database.
+|Sarah Yellin'| is added to the song database.
+|Wrote For Luck (12 - Remastered version)| 0
+|I Think My Wife Is Running Around On Me (Taco Hell)| 1
+|Sarah Yellin'| 2
+|She Blinded Me With Science| 4
+|Doggin' Around| 8
+|Well Oh Well| 10
+|Wicker Chair| 12
+|Be Careful With A Fool| 13
+|Sporco Ma Distinto| 15
+|Juguete| 19
+total songs: 10
+(0,45)

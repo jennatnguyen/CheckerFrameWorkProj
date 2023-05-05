@@ -1,6 +1,20 @@
-insert AA<SEP>A
-insert BB<SEP>B
-insert C<SEP>C
-insert D<SEP>D
-insert E<SEP>E
+insert Bruce Rowland<SEP>Mountain Theme
+insert Thomas Dolby<SEP>She Blinded Me With Science
+insert Cheo Feliciano<SEP>Juguete
+insert Johnny Winter<SEP>Be Careful With A Fool
+insert Kings Of Leon<SEP>Wicker Chair
+insert Happy Mondays<SEP>Wrote For Luck (12 - Remastered version)
+insert Rita Chiarelli<SEP>Doggin' Around
+insert Tim Wilson<SEP>I Think My Wife Is Running Around On Me (Taco Hell)
+insert Ennio Morricone<SEP>Sporco Ma Distinto
+insert Tiny Bradshaw<SEP>Well Oh Well
+print artists
+remove artist Bruce Rowland
+print blocks
+remove artist Thomas Dolby
+print blocks
+remove song Mountain Theme
+print blocks
+insert 3 Doors Down<SEP>Sarah Yellin'
+print songs
 print blocks
