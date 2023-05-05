@@ -25,7 +25,65 @@ public class MemPool implements MemPoolInterface
         // TODO Auto-generated constructor stub
         list.add(new FreeBlock(0, initSize - 1));
     }
-
+    
+   
+    
+    /**
+     * 
+     * @param size the size of the string
+     * @return the memory handle where a string of length
+     * size would be inserted in the pool
+     */
+    public MemHandle findSpot(short size)
+    {
+        int MH = 0;
+        if (list.isEmpty())
+        {
+            //we will need to expand the pool and start writing at the end of it
+            //so the mem handle where we'll start writing is at the end
+            return new MemHandle(pool.length);
+        } else
+        {
+            /*
+             * Search through all the free blocks, check for the smallest which can house
+             * the string. Then return a memory handle starting at that freeblock
+             */
+            int index = 0;
+            int lowLen = Integer.MAX_VALUE; // store a reference to this cause using .get() on the index is slow ash
+            FreeBlock fb;
+            int fbLen = 0;
+            for (int i = 0; i < list.size(); i++)
+            {
+                fb = list.get(i);
+                fbLen = fb.getEnd() - fb.getStart() + 1;// starts at the first usable, and ends at last usable spot, so size is
+                                                        // difference + 1
+                if (fbLen >= (size + 2) && fbLen < lowLen)
+                {
+                    index = i;
+                    lowLen = fbLen;
+                }
+            }
+            if (lowLen == Integer.MAX_VALUE)
+            {
+                // this means none of the freeblocks can store this string
+                //we just tell them where the string will end up going
+                if (list.getTail().previous().getData()
+                        .getEnd() < pool.length - 1)
+                {
+                    return (new MemHandle(pool.length));
+                } else
+                {
+                    return (new MemHandle(list.getTail().previous().getData().getStart()));
+                }
+            } else
+            {
+                MH = list.get(index).getStart();
+            }
+            return new MemHandle(MH);
+        }
+        
+    }
+    
     /**
      * 
      * 
@@ -121,6 +179,8 @@ public class MemPool implements MemPoolInterface
         System.arraycopy(pool, 0, newPool, 0, pool.length);
         pool = newPool;
         bb = ByteBuffer.wrap(pool);
+        System.out.println("Memory pool expanded to be "
+                        + pool.length + " bytes.");
         return bb;
     }
 

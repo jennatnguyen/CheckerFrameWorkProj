@@ -176,6 +176,51 @@ public class HashTable
             }
         }
     }
+    
+    /**
+     * 
+     * 
+     * @param str
+     * @return int returns an integer where the current string would be placed in the 
+     * array
+     */
+    public int findSpot(String str, int table)
+    {
+        if (totalItems >= (currHashTableLen / 2))
+        {
+            expandTable();
+            if (table == 0)
+            {
+                System.out.println("Artist hash table size doubled.");
+                //System.out.println("Artist hash table size doubled. [" + hashTable.length + "]");
+            } else
+            {
+                System.out.println("Song hash table size doubled.");
+                //System.out.println("Song hash table size doubled.[" + hashTable.length + "]");
+            }
+        }
+        int homeSlot = sFold(str, currHashTableLen);
+        int collisons = 0;
+        int probedPosition = quadProbe(homeSlot, collisons);
+        while (hashTable[probedPosition] != null
+                && hashTable[probedPosition] != Handle.TOMBSTONE)
+        {
+            collisons++;
+            probedPosition = quadProbe(homeSlot, collisons);
+        }
+        //hashTable[probedPosition] = MH;
+        //++totalItems;
+        return probedPosition;
+    }
+    
+    /**
+     * inserts a memory handle at the specified position
+     * @param position
+     */
+    public void fastInsert(int position, MemHandle MH)
+    {
+        this.hashTable[position] = MH;
+    }
 
     public void printHashTable(String cat)
     {
