@@ -237,7 +237,7 @@ public class MemPool implements MemPoolInterface
     public void dump()
     {
         if (list.isEmpty()) {
-            System.out.print("(" + pool.length + ", 0)");
+            System.out.print("(" + pool.length + ",0)");
         }
         for (int i = 0; i < list.size(); i++)
         {
