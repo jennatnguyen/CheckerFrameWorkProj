@@ -115,6 +115,29 @@ public class MemManTest extends student.TestCase {
             + "(44,11) -> (121,4) -> (319,1)\r\n", output);
     }
 
+    public void testEdge2() throws IOException
+    {
+        Exception thrown = null;
+        try 
+        {
+            MemMan.main(new String[]
+                { "10", "32", "edge.txt" });
+        }
+        catch (Exception e)
+        {
+            thrown = e;
+            System.out.println(e);
+        }
+        assertTrue(thrown == null);
+        String output = systemOut().getHistory();
+        // below is for testing purposes
+        File myFile = new File("output.txt");
+        FileWriter fileW = new FileWriter("output.txt");
+        fileW.write(output);
+        fileW.close();
+        // above is for testing purposes
+    }
+    
     public void testEdge() throws IOException
     {
         Exception thrown = null;
