@@ -92,6 +92,12 @@ public class MemMan {
          */
         if (tables[table].search(str) == null)
         {
+            MemHandle MH = memPool.findSpot((short) (str.getBytes().length));
+            tables[table].insert(str, MH, table);
+            MH = memPool.insert(str.getBytes(), (short) str.getBytes().length);
+            System.out.println("|" + str + "| is added to the "
+                    + ((table == 0) ? "artist" : "song") + " database.");
+        } else
             int size = memPool.getPool().length;
             MemHandle MH = memPool.insert(str.getBytes(),
                     (short) (str.getBytes().length));

@@ -23,6 +23,7 @@ Memory pool expanded to be 256 bytes.
 |Doggin' Around| is added to the song database.
 Memory pool expanded to be 288 bytes.
 |Tim Wilson| is added to the artist database.
+Memory pool expanded to be 320 bytes.
 Memory pool expanded to be 352 bytes.
 |I Think My Wife Is Running Around On Me (Taco Hell)| is added to the song database.
 |Ennio Morricone| is added to the artist database.
