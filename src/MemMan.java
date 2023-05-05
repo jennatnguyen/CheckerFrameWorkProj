@@ -97,8 +97,11 @@ public class MemMan {
             MH = memPool.insert(str.getBytes(), (short) str.getBytes().length);
             System.out.println("|" + str + "| is added to the "
                     + ((table == 0) ? "artist" : "song") + " database.");
-        }
-        else
+//            int spot = tables[table].findSpot(str, table);
+//            MemHandle MH = memPool.insert(str.getBytes(),
+//                    (short) (str.getBytes().length));
+//            tables[table].fastInsert(spot, MH);
+        } else
         {
             System.out.println("|" + str
                     + "| duplicates a record already in the "

@@ -447,7 +447,7 @@ total songs: 5
 |Lil Durk| 33
 total artists: 4
 |Fixin' To Die Blues| is removed from the song database.
-(0,55) -> (81,44) -> (175,21) -> (196,24) -> (261,91)
+(0,55) -> (81,44) -> (175,45) -> (261,91)
 |Street Car Blues| 5
 |Ma Rainey's Black Bottom| 16
 |Uproar| 38
@@ -459,7 +459,7 @@ total songs: 4
 |Lil Durk| 33
 total artists: 4
 |Bukka White| is removed from the artist database.
-(0,55) -> (81,44) -> (162,13) -> (175,21) -> (196,24) -> (261,91)
+(0,55) -> (81,44) -> (162,58) -> (261,91)
 |Street Car Blues| 5
 |Ma Rainey's Black Bottom| 16
 |Uproar| 38
