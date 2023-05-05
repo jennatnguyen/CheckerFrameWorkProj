@@ -1,12 +1,12 @@
 /**
- * 
+ * This class implements the hash table data structure to store memory
+ * handles for the artists and song.
  *
  * @author Shrey Patel (shreyp2305)
  * @author Sarthak Shrivastava (sarthaks)
  * @version 2023.04.25
  */
-public class HashTable
-{
+public class HashTable {
 
     private Handle[] hashTable;
     private int currHashTableLen;
@@ -14,7 +14,9 @@ public class HashTable
     private MemPool memPool;
 
     /**
-     * Constructor
+     * Constructor to initialize the hashTable, it updates the current hash
+     * table lenght and initialized the memory handle array to store the
+     * handles.
      */
     public HashTable(int initHashTableLen, MemPool memPool)
     {
@@ -24,10 +26,14 @@ public class HashTable
     }
 
     /**
+     * This method is used to insert a memory handle into the hashtable,
+     * and it uses the string of what it is trying to store to find the
+     * homeslot for the memory handle. If there are collisions, then it
+     * will use quadratic probing to go find the next home slot.
      * 
      * 
-     * @param str
-     * @param MH
+     * @param str to be used for hashing
+     * @param MH  to be inserted
      */
     public void insert(String str, MemHandle MH, int table)
     {
@@ -36,12 +42,15 @@ public class HashTable
             expandTable();
             if (table == 0)
             {
-                System.out.println("Artist hash table size doubled.");
-                //System.out.println("Artist hash table size doubled. [" + hashTable.length + "]");
-            } else
+                System.out.println("Artist hash table size doubled");
+                // System.out.println("Artist hash table size doubled. [" +
+                // hashTable.length + "]");
+            }
+            else
             {
-                System.out.println("Song hash table size doubled.");
-                //System.out.println("Song hash table size doubled.[" + hashTable.length + "]");
+                System.out.println("Song hash table size doubled");
+                // System.out.println("Song hash table size doubled.[" +
+                // hashTable.length + "]");
             }
         }
         int homeSlot = sFold(str, currHashTableLen);
@@ -63,14 +72,21 @@ public class HashTable
 //        }
 //        printHashTable();
     }
-    
-    private void printHashTable() {
+
+    /**
+     * Used for testing
+     */
+    private void printHashTable()
+    {
         StringBuilder sb = new StringBuilder("[");
-        for (Handle hand : hashTable) {
-            if (hand != null) {
+        for (Handle hand : hashTable)
+        {
+            if (hand != null)
+            {
                 sb.append(hand.toString() + ", ");
             }
-            else {
+            else
+            {
                 sb.append("null, ");
             }
         }
@@ -79,7 +95,8 @@ public class HashTable
     }
 
     /**
-     * silently inserts the string str into the table
+     * silently inserts the string str into the table, used when we
+     * expanding the hash table
      * 
      * @param str   the string to be inserted
      * @param MH    the memory handle to be stored in the table
@@ -100,10 +117,12 @@ public class HashTable
     }
 
     /**
+     * This removes a memory handle from the hashtable, to do this it finds
+     * the home slot acording to the string given and keeps probing until
+     * it either finds it or reaches a null slot
      * 
-     * 
-     * @param str
-     * @return MemHandel
+     * @param str       used to hash and find home slot
+     * @param tableType used to print stuff
      */
     public void remove(String str, String tableType)
     {
@@ -117,12 +136,14 @@ public class HashTable
             if (MHFound == null)
             {
                 System.out.println("|" + str + "| does not exist in the "
-                        + tableType + " database.");
+                        + tableType + " database");
                 break;
-            } else if (MHFound == Handle.TOMBSTONE)
+            }
+            else if (MHFound == Handle.TOMBSTONE)
             {
                 ++collisions;
-            } else
+            }
+            else
             {
                 String memPoolString = memPool.get((MemHandle) MHFound);
                 if (memPoolString.contains(str))
@@ -130,10 +151,11 @@ public class HashTable
                     memPool.remove((MemHandle) MHFound);
                     hashTable[probedPosition] = Handle.TOMBSTONE;
                     System.out.println("|" + str + "| is removed from the "
-                            + tableType + " database.");
+                            + tableType + " database");
                     totalItems--;
                     break;
-                } else
+                }
+                else
                 {
                     ++collisions;
                 }
@@ -142,11 +164,12 @@ public class HashTable
     }
 
     /**
+     * This method is used to check if a given string exists in the hash
+     * table and memory pool by the memory handle.
      * 
-     * 
-     * @param str
-     * @return MemHandle returns null if not found, otherwise returns the memory
-     *         handle
+     * @param str that you are looking to search
+     * @return MemHandle returns null if not found, otherwise returns the
+     *         memory handle
      */
     public MemHandle search(String str)
     {
@@ -160,16 +183,19 @@ public class HashTable
             if (MHFound == null)
             {
                 return null;
-            } else if (MHFound == Handle.TOMBSTONE)
+            }
+            else if (MHFound == Handle.TOMBSTONE)
             {
                 ++collisions;
-            } else
+            }
+            else
             {
                 String memPoolString = memPool.get((MemHandle) MHFound);
                 if (memPoolString.contains(str))
                 {
                     return (MemHandle) MHFound;
-                } else
+                }
+                else
                 {
                     ++collisions;
                 }
@@ -177,6 +203,11 @@ public class HashTable
         }
     }
 
+    /**
+     * This method is used to print the contents of the hash table
+     * 
+     * @param cat used for printing
+     */
     public void printHashTable(String cat)
     {
         int count = 0;
@@ -196,13 +227,13 @@ public class HashTable
         System.out.println("total " + cat + ": " + count);
     }
 
-    // Helper-Methods-----------------------------------------------------------
     /**
+     * This method is used to return the probed position based on the
+     * homeslot and the ith time the probe is being called
      * 
-     * 
-     * @param indexPosition
-     * @param iteration
-     * @return
+     * @param indexPosition is the homeslot
+     * @param iteration     the number of collisions so far
+     * @return int representing the slot to try next
      */
     private int quadProbe(int indexPosition, int iteration)
     {
@@ -211,7 +242,9 @@ public class HashTable
     }
 
     /**
-     * 
+     * This method is used to expand the size of the hash table by a factor
+     * of 2 after expanding, this method also re-hashes all the memory
+     * handles.
      */
     private void expandTable()
     {
@@ -230,7 +263,8 @@ public class HashTable
     }
 
     /**
-     * Uses the string to find the index location for the object in the hash table
+     * Uses the string to find the index location for the object in the
+     * hash table
      * 
      * @param s
      * @param tableLength

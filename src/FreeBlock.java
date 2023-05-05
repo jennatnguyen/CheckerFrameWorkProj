@@ -1,12 +1,12 @@
 /**
- * 
+ * FreeBlock is used to keep track of open positions in the memory pool. It
+ * stores a start and a end position
  *
  * @author Shrey Patel (shreyp2305)
  * @author Sarthak Shrivastava (sarthaks)
  * @version 2023.04.25
  */
-public class FreeBlock
-{
+public class FreeBlock {
 
     private int start, end;
 
@@ -20,6 +20,8 @@ public class FreeBlock
     }
 
     /**
+     * Getter method for start
+     * 
      * @return the start
      */
     public int getStart()
@@ -28,6 +30,8 @@ public class FreeBlock
     }
 
     /**
+     * setter method for start
+     * 
      * @param start the start to set
      */
     public void setStart(int start)
@@ -36,6 +40,8 @@ public class FreeBlock
     }
 
     /**
+     * Getter method for the end position
+     * 
      * @return the end
      */
     public int getEnd()
@@ -44,6 +50,8 @@ public class FreeBlock
     }
 
     /**
+     * setter position for the end position
+     * 
      * @param end the end to set
      */
     public void setEnd(int end)
@@ -52,7 +60,7 @@ public class FreeBlock
     }
 
     /**
-     * 
+     * To string method used to print out the free block in the memory pool
      */
     @Override
     public String toString()
