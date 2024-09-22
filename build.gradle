@@ -1,0 +1,25 @@
+plugins {
+	id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation files('student.jar')
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']  // Pointing directly to the src directory
+        }
+    }
+}
+
+task run(type: JavaExec) {
+    main = 'MemMan' // Specify your main class
+    classpath = sourceSets.main.runtimeClasspath // Use the runtime classpath
+    args '10', '32', 'sampleInput.txt' // Your command-line arguments
+}
