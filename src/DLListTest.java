@@ -1,7 +1,7 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import student.TestCase;
-
+import org.checkerframework.checker.nullness.qual.*;
 /**
  * @author Eric
  * @author maellis1
@@ -9,13 +9,17 @@ import student.TestCase;
  * @version 2023.04.26
  *
  */
+
 public class DLListTest extends TestCase
 {
     /**
      * the list we will use
      */
+     
     private DLList<String> list;
-
+	public DLListTest() {
+	    list = new DLList<>();
+	}
     /**
      * run before every test case
      */
@@ -71,37 +75,71 @@ public class DLListTest extends TestCase
      * Tests the add method. Ensures that it adds the object is added at the end and
      * the size is increased
      */
-    public void testAdd()
+public void testAdd()
     {
         assertEquals(0, list.size());
         list.add("A");
         assertEquals(1, list.size());
         list.add("B");
         assertEquals(2, list.size());
-        assertEquals("B", list.get(1));
+	String value = list.get(1);
+	if (value == null) {
+	    fail("Expected non-null value at index 1, but got null.");
+	} else {
+	    assertEquals("B", value);  // Safe to compare now
+	}
+
 
     }
+
+
 
     /**
      * Tests that objects can be added at the beginning and end and that they are
      * placed correctly
      */
-    public void testAddIndex()
-    {
-        list.add("B");
-        list.add(0, "A");
-        assertEquals("A", list.get(0));
-        assertEquals(2, list.size());
-        list.add(2, "D");
-        assertEquals("D", list.get(2));
-        list.add(2, "C");
-        assertEquals("C", list.get(2));
-    }
+	public void testAddIndex()
+	{
+	    list.add("B");
+	    list.add(0, "A");
+
+	    // For "A"
+	    String value0 = list.get(0);
+	    if (value0 == null) {
+		fail("Expected non-null value at index 0, but got null.");
+	    } else {
+		assertEquals("A", value0);
+	    }
+
+	    assertEquals(2, list.size());
+
+	    list.add(2, "D");
+
+	    // For "D"
+	    String value2 = list.get(2);
+	    if (value2 == null) {
+		fail("Expected non-null value at index 2, but got null.");
+	    } else {
+		assertEquals("D", value2);
+	    }
+
+	    list.add(2, "C");
+
+	    // For "C"
+	    String valueC = list.get(2);
+	    if (valueC == null) {
+		fail("Expected non-null value at index 2, but got null.");
+	    } else {
+		assertEquals("C", valueC);
+	    }
+	}
+
 
     /**
      * This tests that the add method throws a null pointer exception when adding
      * null data to the list
      */
+     @SuppressWarnings("nullness")  // Suppress the nullness warning for this test
     public void testAddNullException()
     {
         Exception e = null;
@@ -119,6 +157,7 @@ public class DLListTest extends TestCase
      * This tests that the add method throws a Invalid argument when adding null
      * data to the list
      */
+     @SuppressWarnings("nullness")  // Suppress the nullness warning for this test
     public void testAddIndexNullException()
     {
         Exception e = null;
@@ -163,18 +202,35 @@ public class DLListTest extends TestCase
      * Tests removing a object changes the size appropiately and that you can remove
      * the first and last elements
      */
-    public void testRemoveObj()
-    {
-        assertFalse(list.remove(null));
-        list.add("A");
-        list.add("B");
-        assertTrue(list.remove("A"));
-        assertEquals("B", list.get(0));
-        assertEquals(1, list.size());
-        list.add("C");
-        assertTrue(list.remove("C"));
-        assertEquals("B", list.get(0));
+public void testRemoveObj()
+{
+    assertFalse(list.remove(null));  // Check removing null doesn't work
+    list.add("A");
+    list.add("B");
+    assertTrue(list.remove("A"));
+
+    // First occurrence of assertEquals("B", list.get(0));
+    String value0 = list.get(0);
+    if (value0 == null) {
+        fail("Expected non-null value at index 0, but got null.");
+    } else {
+        assertEquals("B", value0);
     }
+
+    assertEquals(1, list.size());
+
+    list.add("C");
+    assertTrue(list.remove("C"));
+
+    // Second occurrence of assertEquals("B", list.get(0));
+    String value1 = list.get(0);
+    if (value1 == null) {
+        fail("Expected non-null value at index 0, but got null.");
+    } else {
+        assertEquals("B", value1);
+    }
+}
+
 
     /**
      * Tests get when the index is greater than or equal to size and when the index

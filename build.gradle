@@ -1,5 +1,12 @@
 plugins {
-	id 'java'
+    id 'java'
+    id 'org.checkerframework' version '0.6.44'
+}
+
+checkerFramework {
+  checkers = [
+    'org.checkerframework.checker.nullness.NullnessChecker'
+  ]
 }
 
 repositories {

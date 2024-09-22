@@ -10,7 +10,11 @@ import student.TestCase;
 public class MemPoolTest extends TestCase
 {
     MemPool mp;
-
+	
+    public MemPoolTest() {
+        mp = new MemPool(256); // Initialize the MemPool here
+    }
+    
     public void setUp()
     {
         mp = new MemPool(256);

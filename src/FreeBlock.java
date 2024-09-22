@@ -13,12 +13,11 @@ public class FreeBlock {
     /**
      * Constructor
      */
-    public FreeBlock(int nStart, int nEnd)
-    {
-        this.setStart(nStart);
-        this.setEnd(nEnd);
-    }
-
+    public FreeBlock(int nStart, int nEnd) {
+    // Directly assign the values to the fields
+        this.start = nStart;
+        this.end = nEnd;
+    } 
     /**
      * Getter method for start
      * 

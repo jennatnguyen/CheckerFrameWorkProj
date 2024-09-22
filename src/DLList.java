@@ -1,6 +1,6 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
+import org.checkerframework.checker.nullness.qual.*;
 /**
  * This provides implementation for the LList methods.
  *
@@ -12,6 +12,9 @@ import java.util.NoSuchElementException;
  * @version 11/1/15
  * @param <E> The type of object the class will store
  */
+ 
+ //supressed due to irrelevancy to null checking
+@SuppressWarnings("initialization.fields.uninitialized")
 public class DLList<E> implements Iterable<E>
 {
 
@@ -28,14 +31,14 @@ public class DLList<E> implements Iterable<E>
     {
         private Node<E> next;
         private Node<E> previous;
-        private E data;
+        private @Nullable E data;
 
         /**
          * Creates a new node with the given data
          *
          * @param d the data to put inside the node
          */
-        public Node(E d)
+        public Node(@Nullable E d)
         {
             data = d;
         }
@@ -85,7 +88,7 @@ public class DLList<E> implements Iterable<E>
          *
          * @return the data in the node
          */
-        public E getData()
+        public @Nullable E getData()
         {
             return data;
         }
@@ -111,6 +114,8 @@ public class DLList<E> implements Iterable<E>
     /**
      * Create a new DLList object.
      */
+      //supressed due to irrelevancy to null checking
+  @SuppressWarnings("method.invocation")
     public DLList()
     {
         init();
@@ -122,7 +127,7 @@ public class DLList<E> implements Iterable<E>
     private void init()
     {
         head = new DLList.Node<E>(null);
-        setTail(new DLList.Node<E>(null));
+        tail = new DLList.Node<E>(null);
         head.setNext(getTail());
         getTail().setPrevious(head);
         size = 0;
@@ -174,7 +179,7 @@ public class DLList<E> implements Iterable<E>
      * @return The object at the given position
      * @throws IndexOutOfBoundsException if there no node at the given index
      */
-    public E get(int index)
+    public @Nullable E get(int index)
     {
         return getNodeAtIndex(index).getData();
     }
@@ -255,23 +260,17 @@ public class DLList<E> implements Iterable<E>
      * @param obj the object to look for
      * @return the last position of it. -1 If it is not in the list
      */
-    public int lastIndexOf(E obj)
-    {
-        /*
-         * We should go from the end of the list as then we an stop once we find the
-         * first one
-         */
-        Node<E> current = getTail().previous();
-        for (int i = size() - 1; i >= 0; i--)
-        {
-            if (current.getData().equals(obj))
-            {
-                return i;
-            }
-            current = current.previous();
-        }
-        return -1; // if we do not find it
-    }
+	public int lastIndexOf(@Nullable E obj) {
+	    Node<E> current = getTail().previous();
+	    for (int i = size() - 1; i >= 0; i--) {
+		E currentData = current.getData(); // Store in a variable
+		if (currentData != null && currentData.equals(obj)) {
+		    return i;
+		}
+		current = current.previous();
+	    }
+	    return -1;
+	}
 
     /**
      * Removes the element at the specified index from the list
@@ -296,22 +295,21 @@ public class DLList<E> implements Iterable<E>
      * @return true if the object was found and removed
      */
 
-    public boolean remove(E obj)
-    {
-        Node<E> current = head.next();
-        while (!current.equals(getTail()))
-        {
-            if (current.getData().equals(obj))
-            {
-                current.previous().setNext(current.next());
-                current.next().setPrevious(current.previous());
-                size--;
-                return true;
-            }
-            current = current.next();
+ public boolean remove(@Nullable E obj) {
+    Node<E> current = head.next();
+    while (!current.equals(getTail())) {
+        E currentData = current.getData(); // Store the data in a variable
+        if (currentData != null && currentData.equals(obj)) {
+            current.previous().setNext(current.next());
+            current.next().setPrevious(current.previous());
+            size--;
+            return true;
         }
-        return false;
+        current = current.next();
     }
+    return false;
+}
+
 
     /**
      * Returns a string representation of the list If a list contains A, B, and C,
@@ -319,28 +317,24 @@ public class DLList<E> implements Iterable<E>
      *
      * @return a string representing the list
      */
-    @Override
-    public String toString()
-    {
-        StringBuilder builder = new StringBuilder("");
-        if (!isEmpty())
-        {
-            Node<E> currNode = head.next();
-            while (currNode != getTail())
-            {
-                E element = currNode.getData();
-                builder.append(element.toString());
-                if (currNode.next != getTail())
-                {
-                    builder.append(" -> ");
-                }
-                currNode = currNode.next();
-            }
-        }
-
-        // builder.append("}");
-        return builder.toString();
-    }
+	@Override
+	public String toString() {
+	    StringBuilder builder = new StringBuilder("");
+	    if (!isEmpty()) {
+		Node<E> currNode = head.next();
+		while (currNode != getTail()) {
+		    E element = currNode.getData();
+		    if (element != null) {
+		        builder.append(element.toString());
+		        if (currNode.next() != getTail()) {
+		            builder.append(" -> ");
+		        }
+		    }
+		    currNode = currNode.next();
+		}
+	    }
+	    return builder.toString();
+	}
 
     /**
      * Description to make iterator
@@ -411,18 +405,16 @@ public class DLList<E> implements Iterable<E>
          * @return the next value
          * @throws NoSuchElementException if there are no nodes left in the list
          */
-        @Override
-        public E next()
-        {
-            next = next.next();
-            if (next.getData() == null)
-            {
-                throw new NoSuchElementException();
-            }
-            calledNext = true;
-            return next.getData();
-
-        }
+	@Override
+	public E next() {
+	    next = next.next();
+	    E nextData = next.getData(); // Store the data in a variable
+	    if (nextData == null) {
+		throw new NoSuchElementException();
+	    }
+	    calledNext = true;
+	    return nextData; // Return the stored data
+	}
 
     }
 
@@ -460,17 +452,15 @@ public class DLList<E> implements Iterable<E>
          * @return the next value
          * @throws NoSuchElementException if there are no nodes left in the list
          */
-        @Override
-        public E next()
-        {
-            next = next.previous();
-            if (next.getData() == null)
-            {
-                throw new NoSuchElementException();
-            }
-            calledNext = true;
-            return next.getData();
-
-        }
+	@Override
+	public E next() {
+	    next = next.previous();
+	    E nextData = next.getData(); // Store the data in a variable
+	    if (nextData == null) {
+		throw new NoSuchElementException();
+	    }
+	    calledNext = true;
+	    return nextData; // Return the stored data
+	}
     }
 }

@@ -1,3 +1,4 @@
+import org.checkerframework.checker.nullness.qual.*;
 /**
  * This class implements the hash table data structure to store memory
  * handles for the artists and song.
@@ -171,7 +172,7 @@ public class HashTable {
      * @return MemHandle returns null if not found, otherwise returns the
      *         memory handle
      */
-    public MemHandle search(String str)
+    public @Nullable MemHandle search(String str)
     {
         int homeSlot = sFold(str, currHashTableLen);
         int collisions = 0;

@@ -1,3 +1,5 @@
+import org.checkerframework.checker.nullness.qual.*;
+
 /**
  * MemHandle is a wrapper class which stores an position to represent where in
  * the memory pool some data starts
@@ -37,7 +39,7 @@ public class MemHandle implements Handle {
     /**
      * equals method to check if two MemHandles equal each other
      */
-    public boolean equals(Object obj)
+    public boolean equals(@Nullable Object obj)
     {
         if (obj == this)
         {
