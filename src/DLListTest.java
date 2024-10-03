@@ -75,7 +75,8 @@ public class DLListTest extends TestCase
      * Tests the add method. Ensures that it adds the object is added at the end and
      * the size is increased
      */
-public void testAdd()
+     //Because get() is nullable in dllist, we must make logic to make sure its not null in testadd
+    public void testAdd()
     {
         assertEquals(0, list.size());
         list.add("A");

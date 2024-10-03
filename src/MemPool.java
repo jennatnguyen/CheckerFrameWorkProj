@@ -32,7 +32,7 @@ public class MemPool implements MemPoolInterface {
      * Find a spot in the memory pool for the given size.
      */
     public MemHandle findSpot(short size) {
-   int MH = 0;
+    int MH = 0;
     if (list.isEmpty()) {
         return new MemHandle(pool.length);
     } else {
@@ -50,90 +50,100 @@ public class MemPool implements MemPoolInterface {
                     lowLen = fbLen;
                 }
             }
-            }
-
-            if (lowLen == Integer.MAX_VALUE) {
-                FreeBlock lastBlock = list.getTail().previous().getData();
-                if (lastBlock != null && lastBlock.getEnd() < pool.length - 1) {
-                    return new MemHandle(pool.length);
-                } else if (lastBlock != null) {
-                    return new MemHandle(lastBlock.getStart());
-                }
-                return new MemHandle(pool.length);
-            } else {
-                FreeBlock currentBlock = list.get(index);
-                if (currentBlock != null) {
-                    MH = currentBlock.getStart();
-                } else {
-                    MH = pool.length; // fallback value
-                }
-            }
-            return new MemHandle(MH);
         }
+
+        DLList.Node<FreeBlock> tail = list.getTail();
+
+	DLList.Node<FreeBlock> previousNode = (tail != null) ? tail.previous() : null;
+	FreeBlock lastBlock = (previousNode != null) ? previousNode.getData() : null;
+
+        if (lowLen == Integer.MAX_VALUE) {
+            if (lastBlock != null && lastBlock.getEnd() < pool.length - 1) {
+                return new MemHandle(pool.length);
+            } else if (lastBlock != null) {
+                return new MemHandle(lastBlock.getStart());
+            }
+            return new MemHandle(pool.length);
+        } else {
+            FreeBlock currentBlock = list.get(index);
+            if (currentBlock != null) {
+                MH = currentBlock.getStart();
+            } else {
+                MH = pool.length; // fallback value
+            }
+        }
+        return new MemHandle(MH);
     }
+}
+
 
     /**
      * Insert bytes into the memory pool.
      */
-    @Override
-    public MemHandle insert(byte[] space, short size) {
-        ByteBuffer bb = ByteBuffer.wrap(pool);
-        int MH = 0;
+	@Override
+	public MemHandle insert(byte[] space, short size) {
+	    ByteBuffer bb = ByteBuffer.wrap(pool);
+	    int MH = 0;
 
-        if (list.isEmpty()) {
-            bb = expandSize();
-            bb.position(pool.length - initSize);
-            bb.putShort(size);
-            bb.put(space);
-            list.add(new FreeBlock((pool.length - initSize) + size + 2, pool.length - 1));
-            return new MemHandle(pool.length - initSize);
-        } else {
-            Iterator<FreeBlock> itr = list.iterator();
-            int index = 0;
-            int lowLen = Integer.MAX_VALUE;
-            FreeBlock fb;
-            int fbLen = 0;
+	    if (list.isEmpty()) {
+		bb = expandSize();
+		bb.position(pool.length - initSize);
+		bb.putShort(size);
+		bb.put(space);
+		list.add(new FreeBlock((pool.length - initSize) + size + 2, pool.length - 1));
+		return new MemHandle(pool.length - initSize);
+	    } else {
+		Iterator<FreeBlock> itr = list.iterator();
+		int index = 0;
+		int lowLen = Integer.MAX_VALUE;
+		FreeBlock fb;
+		int fbLen = 0;
 
-            for (int i = 0; i < list.size(); i++) {
-                fb = list.get(i);
-                if (fb != null) {
-                    fbLen = fb.getEnd() - fb.getStart() + 1;
-                    if (fbLen >= (size + 2) && fbLen < lowLen) {
-                        index = i;
-                        lowLen = fbLen;
-                    }
-                }
-            }
+		for (int i = 0; i < list.size(); i++) {
+		    fb = list.get(i);
+		    if (fb != null) {
+		        fbLen = fb.getEnd() - fb.getStart() + 1;
+		        if (fbLen >= (size + 2) && fbLen < lowLen) {
+		            index = i;
+		            lowLen = fbLen;
+		        }
+		    }
+		}
 
-            if (lowLen == Integer.MAX_VALUE) {
-                FreeBlock lastBlock = list.getTail().previous().getData();
-                if (lastBlock != null && lastBlock.getEnd() < pool.length - 1) {
-                    list.add(new FreeBlock(pool.length, pool.length + initSize - 1));
-                } else if (lastBlock != null) {
-                    lastBlock.setEnd(pool.length + initSize - 1);
-                }
-                bb = expandSize();
-                return this.insert(space, size);
-            } else {
-                FreeBlock currentBlock = list.get(index);
-                if (currentBlock != null) {
-                    bb.position(currentBlock.getStart());
-                    MH = bb.position();
-                    bb.putShort(size);
-                    bb.put(space);
-                    currentBlock.setStart(currentBlock.getStart() + size + 2);
-                }
-            }
+		DLList.Node<FreeBlock> tail = list.getTail();
+	DLList.Node<FreeBlock> previousNode = (tail != null) ? tail.previous() : null;
+	FreeBlock lastBlock = (previousNode != null) ? previousNode.getData() : null;
 
-            // Check if the current block is empty and remove if so
-            FreeBlock currentBlock = list.get(index);
-            if (currentBlock != null && currentBlock.getEnd() == currentBlock.getStart() - 1) {
-                list.remove(index);
-            }
 
-            return new MemHandle(MH);
-        }
-    }
+		if (lowLen == Integer.MAX_VALUE) {
+		    if (lastBlock != null && lastBlock.getEnd() < pool.length - 1) {
+		        list.add(new FreeBlock(pool.length, pool.length + initSize - 1));
+		    } else if (lastBlock != null) {
+		        lastBlock.setEnd(pool.length + initSize - 1);
+		    }
+		    bb = expandSize();
+		    return this.insert(space, size);
+		} else {
+		    FreeBlock currentBlock = list.get(index);
+		    if (currentBlock != null) {
+		        bb.position(currentBlock.getStart());
+		        MH = bb.position();
+		        bb.putShort(size);
+		        bb.put(space);
+		        currentBlock.setStart(currentBlock.getStart() + size + 2);
+		    }
+		}
+
+		// Check if the current block is empty and remove if so
+		FreeBlock currentBlock = list.get(index);
+		if (currentBlock != null && currentBlock.getEnd() == currentBlock.getStart() - 1) {
+		    list.remove(index);
+		}
+
+		return new MemHandle(MH);
+	    }
+	}
+
 
     /**
      * Expand the size of the memory pool when needed.
@@ -148,40 +158,44 @@ public class MemPool implements MemPoolInterface {
     /**
      * Remove a memory handle.
      */
-    @Override
-    public void remove(MemHandle theHandle) {
-        ByteBuffer bb = ByteBuffer.wrap(pool);
-        bb.position(theHandle.getStart());
-        short size = bb.getShort();
-        FreeBlock newFBlock = new FreeBlock(theHandle.getStart(), theHandle.getStart() + 1 + size);
+	@Override
+	public void remove(MemHandle theHandle) {
+	    ByteBuffer bb = ByteBuffer.wrap(pool);
+	    bb.position(theHandle.getStart());
+	    short size = bb.getShort();
+	    FreeBlock newFBlock = new FreeBlock(theHandle.getStart(), theHandle.getStart() + 1 + size);
 
-        if (list.isEmpty()) {
-            list.add(newFBlock);
-        } else {
-            FreeBlock firstBlock = list.get(0);
-            if (firstBlock != null && newFBlock.getEnd() <= firstBlock.getStart()) {
-                list.add(0, newFBlock);
-                merge(0);
-            } else {
-                FreeBlock previousFreeBlock = list.getTail().previous().getData();
-                if (previousFreeBlock != null && newFBlock.getStart() >= previousFreeBlock.getEnd()) {
-                    list.add(newFBlock);
-                    merge(list.size() - 1);
-                    return;
-                }
+	    if (list.isEmpty()) {
+		list.add(newFBlock);
+	    } else {
+		FreeBlock firstBlock = list.get(0);
+		if (firstBlock != null && newFBlock.getEnd() <= firstBlock.getStart()) {
+		    list.add(0, newFBlock);
+		    merge(0);
+		} else {
+		    DLList.Node<FreeBlock> tail = list.getTail();
+		    DLList.Node<FreeBlock> previousNode = (tail != null) ? tail.previous() : null;
+		    FreeBlock previousFreeBlock = (previousNode != null) ? previousNode.getData() : null;
 
-                for (int i = 1; i < list.size(); i++) {
-                    FreeBlock curr = list.get(i);
-                    FreeBlock prev = list.get(i - 1);
-                    if (curr != null && prev != null && newFBlock.getStart() >= prev.getEnd() && newFBlock.getEnd() <= curr.getStart()) {
-                        list.add(i, newFBlock);
-                        merge(i);
-                        break;
-                    }
-                }
-            }
-        }
-    }
+		    if (previousFreeBlock != null && newFBlock.getStart() >= previousFreeBlock.getEnd()) {
+		        list.add(newFBlock);
+		        merge(list.size() - 1);
+		        return;
+		    }
+
+		    for (int i = 1; i < list.size(); i++) {
+		        FreeBlock curr = list.get(i);
+		        FreeBlock prev = list.get(i - 1);
+		        if (curr != null && prev != null && newFBlock.getStart() >= prev.getEnd() && newFBlock.getEnd() <= curr.getStart()) {
+		            list.add(i, newFBlock);
+		            merge(i);
+		            break;
+		        }
+		    }
+		}
+	    }
+	}
+
 
     /**
      * Merge adjacent free blocks.
